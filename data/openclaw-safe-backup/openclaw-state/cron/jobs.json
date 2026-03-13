@@ -31,7 +31,8 @@
         "lastDurationMs": 445143,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1773417600010
       }
     },
     {
@@ -106,7 +107,7 @@
       "description": "Ð“ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ñ Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ ÐžÐ¡ Ð·Ð° Ð´ÐµÐ½ÑŒ Ð´Ð»Ñ Ð²ÐºÐ»Ð°Ð´ÐºÐ¸ Brain",
       "enabled": true,
       "createdAtMs": 1773269161940,
-      "updatedAtMs": 1773324108896,
+      "updatedAtMs": 1773410531091,
       "schedule": {
         "kind": "cron",
         "expr": "0 0 * * *",
@@ -123,11 +124,11 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773410400000,
-        "lastRunAtMs": 1773324000023,
+        "nextRunAtMs": 1773496800000,
+        "lastRunAtMs": 1773410400013,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 108873,
+        "lastDurationMs": 131078,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0
