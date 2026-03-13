@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "8e0bd6af-33a2-40b3-b04c-318dbbf36663",
+      "name": "ÐÐ¾Ñ‡Ð½Ð¾Ð¹ Ð±ÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ñ‹Ð¹ Ð±ÑÐºÐ°Ð¿",
+      "description": "02:00 â€” Ð±ÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ñ‹Ð¹ Ð±ÑÐºÐ°Ð¿ Ð² Ð¿Ñ€Ð¸Ð²Ð°Ñ‚Ð½Ñ‹Ð¹ git-Ñ€ÐµÐ¿Ð¾Ð·Ð¸Ñ‚Ð¾Ñ€Ð¸Ð¹",
+      "enabled": true,
+      "createdAtMs": 1773269128978,
+      "updatedAtMs": 1773394436149,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 2 * * *",
+        "tz": "Asia/Vladivostok"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Запусти безопасный backup-скрипт Avanta: `cd C:\\Users\\vboxuser\\.openclaw\\workspace-finfak\\projects\\avanta-os` затем `./tools/safe-backup.ps1 -Push`. Скрипт делает snapshot OpenClaw state + workspace без секретов и пушит в origin и backup. Если возникнет ошибка — отчитайся с причиной и шагом, где упало."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1773417600000,
+        "lastRunAtMs": 1773331200014,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 445143,
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "b7c281a5-0b1f-4104-b275-a1b302a854e1",
+      "name": "ÐÐ¾Ñ‡Ð½Ð¾Ðµ ÑÐ°Ð¼Ð¾ÑƒÐ»ÑƒÑ‡ÑˆÐµÐ½Ð¸Ðµ (Staged)",
+      "description": "ÐÑƒÐ´Ð¸Ñ‚ Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ð¼Ð¾Ð´ÑƒÐ»Ñ Avanta Ð¸ Ñ€ÐµÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ñ€Ð¾Ð²Ð½Ð¾ Ð¾Ð´Ð½Ð¾Ð¹ staged-Ñ„Ð¸Ñ‡Ð¸",
+      "enabled": true,
+      "createdAtMs": 1773269140230,
+      "updatedAtMs": 1773333210927,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 2 * * *",
+        "tz": "Asia/Vladivostok"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "ÐšÐ°Ð¶Ð´ÑƒÑŽ Ð½Ð¾Ñ‡ÑŒ Ð¿Ñ€Ð¾Ð²Ð¾Ð´Ð¸ Ð°ÑƒÐ´Ð¸Ñ‚ Ñ€Ð¾Ð²Ð½Ð¾ ÐžÐ”ÐÐžÐ“Ðž Ð¼Ð¾Ð´ÑƒÐ»Ñ Avanta OS (ops/brain/lab), Ð¿Ñ€ÐµÐ´Ð»Ð¾Ð¶Ð¸ Ð¾Ð´Ð½Ð¾ ÑƒÐ»ÑƒÑ‡ÑˆÐµÐ½Ð¸Ðµ Ñ Ð½Ð°Ð¸Ð±Ð¾Ð»ÑŒÑˆÐ¸Ð¼ ÑÑ„Ñ„ÐµÐºÑ‚Ð¾Ð¼ Ð² ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²Ð¸Ð¸ Ñ Ñ†ÐµÐ»ÑÐ¼Ð¸ USER.md + MEMORY.md, Ð²Ð½ÐµÐ´Ñ€ÑÐ¹ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð½Ð° staged sandbox preview-Ð¿Ð¾Ñ€Ñ‚Ñƒ (Ð½Ð¸ÐºÐ¾Ð³Ð´Ð° Ð½Ðµ 8800), ÑÐ¾Ð·Ð´Ð°Ð¹/Ð¾Ð±Ð½Ð¾Ð²Ð¸ ÐºÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚Ð° Ñ„Ð¸Ñ‡Ð¸ Ð² Lab Ñ preview URL Ñ‡ÐµÑ€ÐµÐ· /api/lab/nightly-candidate Ð¸ Ð»Ð¾Ð³Ð¸Ñ€ÑƒÐ¹ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ñ‹/Ð¾ÑˆÐ¸Ð±ÐºÐ¸. ÐÐ¸ÐºÐ¾Ð³Ð´Ð° Ð½Ðµ Ð´ÐµÐ¿Ð»Ð¾Ð¹ Ð² production."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1773419400000,
+        "lastRunAtMs": 1773333000010,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 210917,
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "071fd12e-1c58-4f52-967d-6128d7f666ea",
+      "name": "Ð£Ñ‚Ñ€ÐµÐ½Ð½Ð¸Ð¹ Ð±Ñ€Ð¸Ñ„ + AI Pulse",
+      "description": "Ð•Ð¶ÐµÐ´Ð½ÐµÐ²Ð½Ñ‹Ðµ Ð¿Ñ€Ð¸Ð¾Ñ€Ð¸Ñ‚ÐµÑ‚Ñ‹, Ð½Ð¾Ñ‡Ð½Ð¾Ð¹ ÑÑ‚Ð°Ñ‚ÑƒÑ cron Ð¸ AI Pulse Ð¸Ð· Ð±ÐµÑÐ¿Ð»Ð°Ñ‚Ð½Ñ‹Ñ… Ð¸ÑÑ‚Ð¾Ñ‡Ð½Ð¸ÐºÐ¾Ð²",
+      "enabled": true,
+      "createdAtMs": 1773269151032,
+      "updatedAtMs": 1773352966595,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * *",
+        "tz": "Asia/Vladivostok"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "ÐŸÐ¾Ð´Ð³Ð¾Ñ‚Ð¾Ð²ÑŒ ÑƒÑ‚Ñ€ÐµÐ½Ð½Ð¸Ð¹ Ð±Ñ€Ð¸Ñ„, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÑ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð‘Ð•Ð¡ÐŸÐ›ÐÐ¢ÐÐ«Ð• Ð¸ÑÑ‚Ð¾Ñ‡Ð½Ð¸ÐºÐ¸ (Ð±ÐµÐ· web_search). Ð¡Ñ„Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐ¹ Ð¾Ñ‚Ñ‡Ñ‘Ñ‚: (1) Ñ‚Ð¾Ð¿-Ð¿Ñ€Ð¸Ð¾Ñ€Ð¸Ñ‚ÐµÑ‚Ñ‹ Ð½Ð° ÑÐµÐ³Ð¾Ð´Ð½Ñ, (2) Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ñ‹ Ð½Ð¾Ñ‡Ð½Ñ‹Ñ… cron Ñ Ð¾ÑˆÐ¸Ð±ÐºÐ°Ð¼Ð¸/Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸ÑÐ¼Ð¸, (3) AI Pulse Ð¸Ð· Ð¾Ñ„Ð¸Ñ†Ð¸Ð°Ð»ÑŒÐ½Ñ‹Ñ… RSS/Ð½Ð¾Ð²Ð¾ÑÑ‚Ð½Ñ‹Ñ… Ð¸ÑÑ‚Ð¾Ñ‡Ð½Ð¸ÐºÐ¾Ð²: OpenAI, Anthropic, Google AI, DeepMind, Meta AI, Microsoft AI, Hugging Face, Ð° Ñ‚Ð°ÐºÐ¶Ðµ Ð·Ð°Ð¼ÐµÑ‚Ð½Ñ‹Ðµ GitHub releases Ð¸ ÑÐ¸Ð³Ð½Ð°Ð»Ñ‹ HN Ð¿Ñ€Ð¸ Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ð¸. Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐ¹ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ web_fetch/RSS. Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸ markdown Ð² projects/avanta-os/data/daily-summaries/YYYY-MM-DD.md Ð¸ Ð´Ð°Ð¹ ÐºÑ€Ð°Ñ‚ÐºÐ¾Ðµ executive summary."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1773439200000,
+        "lastRunAtMs": 1773352800016,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 166579,
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "406f3fa9-3417-4417-9cc9-2db9adb522a3",
+      "name": "ÐŸÐ¾Ð»ÑƒÐ½Ð¾Ñ‡Ð½Ð°Ñ ÑÐ¸Ð½Ñ…Ñ€Ð¾Ð½Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ Avanta",
+      "description": "Ð“ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ñ Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ ÐžÐ¡ Ð·Ð° Ð´ÐµÐ½ÑŒ Ð´Ð»Ñ Ð²ÐºÐ»Ð°Ð´ÐºÐ¸ Brain",
+      "enabled": true,
+      "createdAtMs": 1773269161940,
+      "updatedAtMs": 1773324108896,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 0 * * *",
+        "tz": "Asia/Vladivostok"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Ð’ Ð¿Ð¾Ð»Ð½Ð¾Ñ‡ÑŒ Ð¿Ñ€Ð¾Ð°Ð½Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐ¹ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Avanta OS Ð¿Ð¾ ÐºÐ°Ð¶Ð´Ð¾Ð¼Ñƒ Ð¼Ð¾Ð´ÑƒÐ»ÑŽ/Ð²ÐºÐ»Ð°Ð´ÐºÐµ/Ñ„Ð¸Ñ‡Ðµ Ð¸ Ð¾Ð±Ð½Ð¾Ð²Ð¸ markdown-Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸ÑŽ Ð´Ð»Ñ Ð²ÐºÐ»Ð°Ð´ÐºÐ¸ Brain docs (Ñ‡Ñ‚Ð¾ ÑƒÐ¶Ðµ ÐµÑÑ‚ÑŒ, Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ, workflows, Ð¿Ð¾ÑÐ»ÐµÐ´Ð½Ð¸Ðµ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ). Ð’Ñ‹Ð³Ñ€ÑƒÐ·Ð¸ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚ Ð² projects/avanta-os/data/docs/avanta-os-manual.md Ð¸ Ð´Ð¾Ð±Ð°Ð²ÑŒ Ñ€Ð°Ð·Ð´ÐµÐ» changelog Ð·Ð° ÑÐµÐ³Ð¾Ð´Ð½Ñ."
+      },
+      "delivery": {
+        "mode": "none",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1773410400000,
+        "lastRunAtMs": 1773324000023,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 108873,
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0
+      }
+    }
+  ]
+}

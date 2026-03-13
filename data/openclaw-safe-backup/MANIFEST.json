@@ -1,0 +1,18 @@
+﻿{
+    "profile":  "finfak",
+    "included":  [
+                     "openclaw-state/openclaw.json (redacted)",
+                     "openclaw-state/cron/jobs.json",
+                     "workspace/*.md + memory/*.md"
+                 ],
+    "generatedAt":  "2026-03-13T19:34:01.0415126+10:00",
+    "mode":  "safe",
+    "excludes":  [
+                     "tokens",
+                     "api keys",
+                     "passwords",
+                     "cookies",
+                     "session files",
+                     "auth-profiles"
+                 ]
+}
