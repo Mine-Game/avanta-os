@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avanta OS</title>
+    <link rel="stylesheet" href="./src/styles.css?v=20260312-0732" />
+  </head>
+  <body>
+    <div class="wallpaper"></div>
+
+    <main class="desktop">
+      <header class="topbar">
+        <div class="brand">Avanta OS <small class="build-tag">build 1015</small></div>
+        <div class="top-actions">
+          <button id="refreshStatusBtn" class="ghost-btn">Обновить статус</button>
+        </div>
+      </header>
+
+      <section id="workspace" class="workspace"></section>
+    </main>
+
+    <nav class="dock" aria-label="Dock">
+      <button class="dock-item" data-module="ops" title="Операции">
+        <span class="dock-icon dock-icon-ops" aria-hidden="true">⚙</span>
+        <small>Операции</small>
+      </button>
+      <button class="dock-item" data-module="brain" title="Мозг">
+        <span class="dock-icon dock-icon-brain" aria-hidden="true">🧠</span>
+        <small>Мозг</small>
+      </button>
+      <button class="dock-item" data-module="lab" title="Лаборатория">
+        <span class="dock-icon dock-icon-lab" aria-hidden="true">🧪</span>
+        <small>Лаборатория</small>
+      </button>
+    </nav>
+
+    <script src="./src/app.js?v=20260312-0741"></script>
+  </body>
+</html>
