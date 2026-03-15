@@ -7,7 +7,7 @@
       "description": "02:00 â€” Ð±ÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ñ‹Ð¹ Ð±ÑÐºÐ°Ð¿ Ð² Ð¿Ñ€Ð¸Ð²Ð°Ñ‚Ð½Ñ‹Ð¹ git-Ñ€ÐµÐ¿Ð¾Ð·Ð¸Ñ‚Ð¾Ñ€Ð¸Ð¹",
       "enabled": true,
       "createdAtMs": 1773269128978,
-      "updatedAtMs": 1773394436149,
+      "updatedAtMs": 1773417619169,
       "schedule": {
         "kind": "cron",
         "expr": "0 2 * * *",
@@ -24,15 +24,15 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773417600000,
-        "lastRunAtMs": 1773331200014,
+        "nextRunAtMs": 1773590400000,
+        "lastRunAtMs": 1773417600014,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 445143,
+        "lastDurationMs": 19155,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1773417600010
+        "runningAtMs": 1773608589129
       }
     },
     {
@@ -41,7 +41,7 @@
       "description": "ÐÑƒÐ´Ð¸Ñ‚ Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ð¼Ð¾Ð´ÑƒÐ»Ñ Avanta Ð¸ Ñ€ÐµÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ñ€Ð¾Ð²Ð½Ð¾ Ð¾Ð´Ð½Ð¾Ð¹ staged-Ñ„Ð¸Ñ‡Ð¸",
       "enabled": true,
       "createdAtMs": 1773269140230,
-      "updatedAtMs": 1773333210927,
+      "updatedAtMs": 1773419590036,
       "schedule": {
         "kind": "cron",
         "expr": "30 2 * * *",
@@ -58,14 +58,15 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773419400000,
-        "lastRunAtMs": 1773333000010,
+        "nextRunAtMs": 1773592200000,
+        "lastRunAtMs": 1773419400022,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 210917,
+        "lastDurationMs": 190014,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1773608589129
       }
     },
     {
@@ -74,7 +75,7 @@
       "description": "Ð•Ð¶ÐµÐ´Ð½ÐµÐ²Ð½Ñ‹Ðµ Ð¿Ñ€Ð¸Ð¾Ñ€Ð¸Ñ‚ÐµÑ‚Ñ‹, Ð½Ð¾Ñ‡Ð½Ð¾Ð¹ ÑÑ‚Ð°Ñ‚ÑƒÑ cron Ð¸ AI Pulse Ð¸Ð· Ð±ÐµÑÐ¿Ð»Ð°Ñ‚Ð½Ñ‹Ñ… Ð¸ÑÑ‚Ð¾Ñ‡Ð½Ð¸ÐºÐ¾Ð²",
       "enabled": true,
       "createdAtMs": 1773269151032,
-      "updatedAtMs": 1773352966595,
+      "updatedAtMs": 1773555882228,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -91,11 +92,11 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773439200000,
-        "lastRunAtMs": 1773352800016,
+        "nextRunAtMs": 1773612000000,
+        "lastRunAtMs": 1773555630850,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 166579,
+        "lastDurationMs": 251378,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0
@@ -124,14 +125,15 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773496800000,
+        "nextRunAtMs": 1773583200000,
         "lastRunAtMs": 1773410400013,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
         "lastDurationMs": 131078,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1773608589129
       }
     }
   ]
