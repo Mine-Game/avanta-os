@@ -968,8 +968,9 @@ function renderOpsStandups() {
   const monthCells = Array.from({ length: 42 }, (_, i) => {
     const d = new Date(gridStart);
     d.setDate(gridStart.getDate() + i);
-    const nativeWeekday = d.getDay();
-    const list = (demoEventsByWeekday[nativeWeekday] || []).map((ev) => buildStandupPayload(d, ev));
+    const key = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    const dueTasks = tasksByDate[key] || [];
+    const list = dueTasks.length ? [buildStandupPayload(d, dueTasks)] : [];
     return {
       date: d,
       inMonth: d.getMonth() === cursor.getMonth(),
