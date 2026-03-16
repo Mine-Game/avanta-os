@@ -5,7 +5,7 @@
                      "openclaw-state/cron/jobs.json",
                      "workspace/*.md + memory/*.md"
                  ],
-    "generatedAt":  "2026-03-16T07:03:35.2333526+10:00",
+    "generatedAt":  "2026-03-17T07:02:32.7814686+10:00",
     "mode":  "safe",
     "excludes":  [
                      "tokens",

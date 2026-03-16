@@ -3,11 +3,11 @@
   "jobs": [
     {
       "id": "8e0bd6af-33a2-40b3-b04c-318dbbf36663",
-      "name": "ÐÐ¾Ñ‡Ð½Ð¾Ð¹ Ð±ÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ñ‹Ð¹ Ð±ÑÐºÐ°Ð¿",
-      "description": "02:00 â€” Ð±ÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ñ‹Ð¹ Ð±ÑÐºÐ°Ð¿ Ð² Ð¿Ñ€Ð¸Ð²Ð°Ñ‚Ð½Ñ‹Ð¹ git-Ñ€ÐµÐ¿Ð¾Ð·Ð¸Ñ‚Ð¾Ñ€Ð¸Ð¹",
+      "name": "Ночной безопасный бэкап",
+      "description": "02:00 — безопасный бэкап в приватный git-репозиторий",
       "enabled": true,
       "createdAtMs": 1773269128978,
-      "updatedAtMs": 1773417619169,
+      "updatedAtMs": 1773609442905,
       "schedule": {
         "kind": "cron",
         "expr": "0 2 * * *",
@@ -24,24 +24,24 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773590400000,
-        "lastRunAtMs": 1773417600014,
+        "nextRunAtMs": 1773676800000,
+        "lastRunAtMs": 1773608589142,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 19155,
+        "lastDurationMs": 44205,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1773608589129
+        "runningAtMs": 1773694931721
       }
     },
     {
       "id": "b7c281a5-0b1f-4104-b275-a1b302a854e1",
-      "name": "ÐÐ¾Ñ‡Ð½Ð¾Ðµ ÑÐ°Ð¼Ð¾ÑƒÐ»ÑƒÑ‡ÑˆÐµÐ½Ð¸Ðµ (Staged)",
-      "description": "ÐÑƒÐ´Ð¸Ñ‚ Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ð¼Ð¾Ð´ÑƒÐ»Ñ Avanta Ð¸ Ñ€ÐµÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ñ€Ð¾Ð²Ð½Ð¾ Ð¾Ð´Ð½Ð¾Ð¹ staged-Ñ„Ð¸Ñ‡Ð¸",
+      "name": "Ночное самоулучшение (Staged)",
+      "description": "Аудит одного модуля Avanta и реализация ровно одной staged-фичи",
       "enabled": true,
       "createdAtMs": 1773269140230,
-      "updatedAtMs": 1773419590036,
+      "updatedAtMs": 1773608766370,
       "schedule": {
         "kind": "cron",
         "expr": "30 2 * * *",
@@ -51,31 +51,31 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "ÐšÐ°Ð¶Ð´ÑƒÑŽ Ð½Ð¾Ñ‡ÑŒ Ð¿Ñ€Ð¾Ð²Ð¾Ð´Ð¸ Ð°ÑƒÐ´Ð¸Ñ‚ Ñ€Ð¾Ð²Ð½Ð¾ ÐžÐ”ÐÐžÐ“Ðž Ð¼Ð¾Ð´ÑƒÐ»Ñ Avanta OS (ops/brain/lab), Ð¿Ñ€ÐµÐ´Ð»Ð¾Ð¶Ð¸ Ð¾Ð´Ð½Ð¾ ÑƒÐ»ÑƒÑ‡ÑˆÐµÐ½Ð¸Ðµ Ñ Ð½Ð°Ð¸Ð±Ð¾Ð»ÑŒÑˆÐ¸Ð¼ ÑÑ„Ñ„ÐµÐºÑ‚Ð¾Ð¼ Ð² ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²Ð¸Ð¸ Ñ Ñ†ÐµÐ»ÑÐ¼Ð¸ USER.md + MEMORY.md, Ð²Ð½ÐµÐ´Ñ€ÑÐ¹ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð½Ð° staged sandbox preview-Ð¿Ð¾Ñ€Ñ‚Ñƒ (Ð½Ð¸ÐºÐ¾Ð³Ð´Ð° Ð½Ðµ 8800), ÑÐ¾Ð·Ð´Ð°Ð¹/Ð¾Ð±Ð½Ð¾Ð²Ð¸ ÐºÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚Ð° Ñ„Ð¸Ñ‡Ð¸ Ð² Lab Ñ preview URL Ñ‡ÐµÑ€ÐµÐ· /api/lab/nightly-candidate Ð¸ Ð»Ð¾Ð³Ð¸Ñ€ÑƒÐ¹ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ñ‹/Ð¾ÑˆÐ¸Ð±ÐºÐ¸. ÐÐ¸ÐºÐ¾Ð³Ð´Ð° Ð½Ðµ Ð´ÐµÐ¿Ð»Ð¾Ð¹ Ð² production."
+        "message": "Каждую ночь проводи аудит ровно ОДНОГО модуля Avanta OS (ops/brain/lab), предложи одно улучшение с наибольшим эффектом в соответствии с целями USER.md + MEMORY.md, внедряй только на staged sandbox preview-порту (никогда не 8800), создай/обнови кандидата фичи в Lab с preview URL через /api/lab/nightly-candidate и логируй результаты/ошибки. Никогда не деплой в production."
       },
       "delivery": {
         "mode": "none",
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773592200000,
-        "lastRunAtMs": 1773419400022,
+        "nextRunAtMs": 1773678600000,
+        "lastRunAtMs": 1773608633347,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 190014,
+        "lastDurationMs": 133023,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1773608589129
+        "runningAtMs": 1773694931721
       }
     },
     {
       "id": "071fd12e-1c58-4f52-967d-6128d7f666ea",
-      "name": "Ð£Ñ‚Ñ€ÐµÐ½Ð½Ð¸Ð¹ Ð±Ñ€Ð¸Ñ„ + AI Pulse",
-      "description": "Ð•Ð¶ÐµÐ´Ð½ÐµÐ²Ð½Ñ‹Ðµ Ð¿Ñ€Ð¸Ð¾Ñ€Ð¸Ñ‚ÐµÑ‚Ñ‹, Ð½Ð¾Ñ‡Ð½Ð¾Ð¹ ÑÑ‚Ð°Ñ‚ÑƒÑ cron Ð¸ AI Pulse Ð¸Ð· Ð±ÐµÑÐ¿Ð»Ð°Ñ‚Ð½Ñ‹Ñ… Ð¸ÑÑ‚Ð¾Ñ‡Ð½Ð¸ÐºÐ¾Ð²",
+      "name": "Утренний бриф + AI Pulse",
+      "description": "Ежедневные приоритеты, ночной статус cron и AI Pulse из бесплатных источников",
       "enabled": true,
       "createdAtMs": 1773269151032,
-      "updatedAtMs": 1773555882228,
+      "updatedAtMs": 1773612171989,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -85,18 +85,18 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "ÐŸÐ¾Ð´Ð³Ð¾Ñ‚Ð¾Ð²ÑŒ ÑƒÑ‚Ñ€ÐµÐ½Ð½Ð¸Ð¹ Ð±Ñ€Ð¸Ñ„, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÑ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð‘Ð•Ð¡ÐŸÐ›ÐÐ¢ÐÐ«Ð• Ð¸ÑÑ‚Ð¾Ñ‡Ð½Ð¸ÐºÐ¸ (Ð±ÐµÐ· web_search). Ð¡Ñ„Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐ¹ Ð¾Ñ‚Ñ‡Ñ‘Ñ‚: (1) Ñ‚Ð¾Ð¿-Ð¿Ñ€Ð¸Ð¾Ñ€Ð¸Ñ‚ÐµÑ‚Ñ‹ Ð½Ð° ÑÐµÐ³Ð¾Ð´Ð½Ñ, (2) Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ñ‹ Ð½Ð¾Ñ‡Ð½Ñ‹Ñ… cron Ñ Ð¾ÑˆÐ¸Ð±ÐºÐ°Ð¼Ð¸/Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸ÑÐ¼Ð¸, (3) AI Pulse Ð¸Ð· Ð¾Ñ„Ð¸Ñ†Ð¸Ð°Ð»ÑŒÐ½Ñ‹Ñ… RSS/Ð½Ð¾Ð²Ð¾ÑÑ‚Ð½Ñ‹Ñ… Ð¸ÑÑ‚Ð¾Ñ‡Ð½Ð¸ÐºÐ¾Ð²: OpenAI, Anthropic, Google AI, DeepMind, Meta AI, Microsoft AI, Hugging Face, Ð° Ñ‚Ð°ÐºÐ¶Ðµ Ð·Ð°Ð¼ÐµÑ‚Ð½Ñ‹Ðµ GitHub releases Ð¸ ÑÐ¸Ð³Ð½Ð°Ð»Ñ‹ HN Ð¿Ñ€Ð¸ Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ð¸. Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐ¹ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ web_fetch/RSS. Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸ markdown Ð² projects/avanta-os/data/daily-summaries/YYYY-MM-DD.md Ð¸ Ð´Ð°Ð¹ ÐºÑ€Ð°Ñ‚ÐºÐ¾Ðµ executive summary."
+        "message": "Подготовь утренний бриф, используя только БЕСПЛАТНЫЕ источники (без web_search). Сформируй отчёт: (1) топ-приоритеты на сегодня, (2) результаты ночных cron с ошибками/действиями, (3) AI Pulse из официальных RSS/новостных источников: OpenAI, Anthropic, Google AI, DeepMind, Meta AI, Microsoft AI, Hugging Face, а также заметные GitHub releases и сигналы HN при наличии. Используй только web_fetch/RSS. Сохрани markdown в projects/avanta-os/data/daily-summaries/YYYY-MM-DD.md и дай краткое executive summary."
       },
       "delivery": {
         "mode": "none",
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773612000000,
-        "lastRunAtMs": 1773555630850,
+        "nextRunAtMs": 1773698400000,
+        "lastRunAtMs": 1773612000018,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 251378,
+        "lastDurationMs": 171971,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0
@@ -104,11 +104,11 @@
     },
     {
       "id": "406f3fa9-3417-4417-9cc9-2db9adb522a3",
-      "name": "ÐŸÐ¾Ð»ÑƒÐ½Ð¾Ñ‡Ð½Ð°Ñ ÑÐ¸Ð½Ñ…Ñ€Ð¾Ð½Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ Avanta",
-      "description": "Ð“ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ñ Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ð¸ ÐžÐ¡ Ð·Ð° Ð´ÐµÐ½ÑŒ Ð´Ð»Ñ Ð²ÐºÐ»Ð°Ð´ÐºÐ¸ Brain",
+      "name": "Полуночная синхронизация документации Avanta",
+      "description": "Генерация документации ОС за день для вкладки Brain",
       "enabled": true,
       "createdAtMs": 1773269161940,
-      "updatedAtMs": 1773410531091,
+      "updatedAtMs": 1773608916368,
       "schedule": {
         "kind": "cron",
         "expr": "0 0 * * *",
@@ -118,22 +118,55 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Ð’ Ð¿Ð¾Ð»Ð½Ð¾Ñ‡ÑŒ Ð¿Ñ€Ð¾Ð°Ð½Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐ¹ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Avanta OS Ð¿Ð¾ ÐºÐ°Ð¶Ð´Ð¾Ð¼Ñƒ Ð¼Ð¾Ð´ÑƒÐ»ÑŽ/Ð²ÐºÐ»Ð°Ð´ÐºÐµ/Ñ„Ð¸Ñ‡Ðµ Ð¸ Ð¾Ð±Ð½Ð¾Ð²Ð¸ markdown-Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸ÑŽ Ð´Ð»Ñ Ð²ÐºÐ»Ð°Ð´ÐºÐ¸ Brain docs (Ñ‡Ñ‚Ð¾ ÑƒÐ¶Ðµ ÐµÑÑ‚ÑŒ, Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ, workflows, Ð¿Ð¾ÑÐ»ÐµÐ´Ð½Ð¸Ðµ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ). Ð’Ñ‹Ð³Ñ€ÑƒÐ·Ð¸ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚ Ð² projects/avanta-os/data/docs/avanta-os-manual.md Ð¸ Ð´Ð¾Ð±Ð°Ð²ÑŒ Ñ€Ð°Ð·Ð´ÐµÐ» changelog Ð·Ð° ÑÐµÐ³Ð¾Ð´Ð½Ñ."
+        "message": "В полночь проанализируй изменения Avanta OS по каждому модулю/вкладке/фиче и обнови markdown-документацию для вкладки Brain docs (что уже есть, назначение, workflows, последние изменения). Выгрузи результат в projects/avanta-os/data/docs/avanta-os-manual.md и добавь раздел changelog за сегодня."
       },
       "delivery": {
         "mode": "none",
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773583200000,
-        "lastRunAtMs": 1773410400013,
+        "nextRunAtMs": 1773669600000,
+        "lastRunAtMs": 1773608766370,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 131078,
+        "lastDurationMs": 149998,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1773608589129
+        "runningAtMs": 1773694931721
+      }
+    },
+    {
+      "id": "8d3f7640-69ee-496e-8c23-c74dc7bf3cd8",
+      "name": "Ночной Micro-SaaS Factory",
+      "description": "Исследование + генерация 1 micro-SaaS кандидата для Prototype Factory",
+      "enabled": true,
+      "createdAtMs": 1773612978422,
+      "updatedAtMs": 1773613078001,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 3 * * *",
+        "tz": "Asia/Vladivostok"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Каждую ночь создай один новый Micro-SaaS кандидат для Prototype Factory на основе реальных исследований рынка.\nШаги:\n1) Выполни исследование через локальный endpoint Avanta `POST http://127.0.0.1:8800/api/research/langsearch` с запросом про pain points и willing-to-pay в узких B2B нишах (до 6 результатов).\n2) Сформируй артефакты:\n   - идея продукта (название, ICP, проблема, решение, монетизация, риски)\n   - go/no-go score по шкале 0..10\n   - краткий GTM-план (канал, оффер, тест)\n   - preview-концепт (URL если есть, иначе текстовое описание)\n3) Сохрани research JSON в `projects/avanta-os/data/lab/research/YYYY-MM-DD-microsaas.json`.\n4) Обнови/добавь кандидата через `POST http://127.0.0.1:8800/api/lab/nightly-candidate`.\n5) Запиши лог результата в `projects/avanta-os/data/lab/nightly-builds/latest.json`.\nТребования: без моков, только реальные сигналы; если данных мало — явно укажи ограничения."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1773680400000,
+        "lastRunAtMs": 1773613003504,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 74497,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "runningAtMs": 1773694931721
       }
     }
   ]
