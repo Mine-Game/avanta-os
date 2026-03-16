@@ -10,22 +10,22 @@ const state = {
   refreshInFlight: false,
   tabsByModule: {
     ops: [
-      { id: 'ops-mission-control', title: 'Ð¦ÐµÐ½Ñ‚Ñ€ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ' },
-      { id: 'ops-pm-board', title: 'PM-Ð´Ð¾ÑÐºÐ°' },
-      { id: 'ops-standups', title: 'Standups' },
-      { id: 'ops-workspaces', title: 'Workspaces' },
-      { id: 'ops-org-chart', title: 'ÐšÐ¾Ð¼Ð°Ð½Ð´Ð°' },
-      { id: 'ops-docs', title: 'Docs' },
+      { id: 'ops-mission-control', title: 'Центр управления' },
+      { id: 'ops-pm-board', title: 'PM-доска' },
+      { id: 'ops-standups', title: 'Стендапы' },
+      { id: 'ops-workspaces', title: 'Файлы' },
+      { id: 'ops-org-chart', title: 'Команда' },
+      { id: 'ops-docs', title: 'Документы' },
     ],
     brain: [
-      { id: 'brain-daily-summaries', title: 'Ð•Ð¶ÐµÐ´Ð½ÐµÐ²Ð½Ñ‹Ðµ ÑÐ²Ð¾Ð´ÐºÐ¸' },
-      { id: 'brain-skills-directory', title: 'Skills Directory' },
-      { id: 'brain-automation', title: 'Automations' },
-      { id: 'brain-config-inspector', title: 'Config Inspector' },
+      { id: 'brain-daily-summaries', title: 'Ежедневные сводки' },
+      { id: 'brain-skills-directory', title: 'Каталог навыков' },
+      { id: 'brain-automation', title: 'Автоматизации' },
+      { id: 'brain-config-inspector', title: 'Инспектор конфигурации' },
     ],
     lab: [
-      { id: 'lab-dashboard', title: 'ÐžÐ±Ð·Ð¾Ñ€' },
-      { id: 'lab-prototype-factory', title: 'Prototype Factory' },
+      { id: 'lab-dashboard', title: 'Обзор' },
+      { id: 'lab-prototype-factory', title: 'Фабрика прототипов' },
     ],
   },
   activeTabByModule: {
@@ -250,9 +250,9 @@ function reorderTabs(moduleId, fromIndex, toIndex) {
 }
 
 function formatTime(value) {
-  if (!value) return 'â€”';
+  if (!value) return '—';
   const dt = new Date(value);
-  return Number.isNaN(dt.getTime()) ? 'â€”' : dt.toLocaleString();
+  return Number.isNaN(dt.getTime()) ? '—' : dt.toLocaleString();
 }
 
 function sortHistoryNewestFirst(items) {
@@ -274,7 +274,7 @@ function historySignature(items) {
 
 async function fetchSessionHistory(sessionKey) {
   const response = await fetch(`/api/session-history?sessionKey=${encodeURIComponent(sessionKey)}`, { cache: 'no-store' });
-  if (!response.ok) throw new Error('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ð¸ÑÑ‚Ð¾Ñ€Ð¸ÑŽ ÑÐµÑÑÐ¸Ð¸');
+  if (!response.ok) throw new Error('Не удалось загрузить историю сессии');
   return response.json();
 }
 
@@ -323,7 +323,7 @@ async function openSessionViewer(sessionKey) {
     };
   } catch (err) {
     state.sessionViewer.loading = false;
-    state.sessionViewer.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ¸';
+    state.sessionViewer.error = err?.message || 'Ошибка загрузки';
   }
 
   render();
@@ -372,7 +372,7 @@ async function refreshSessionViewerRealtime() {
       render();
     }
   } catch (err) {
-    state.sessionViewer.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° realtime-Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ñ';
+    state.sessionViewer.error = err?.message || 'Ошибка realtime-обновления';
     render();
   } finally {
     sessionViewerRealtimeInFlight = false;
@@ -462,7 +462,7 @@ function render() {
               data-tab="${tab.id}"
               data-index="${i}"
               draggable="true"
-              title="ÐŸÐµÑ€ÐµÑ‚Ð°Ñ‰Ð¸Ñ‚Ðµ, Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð¸Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ Ð¿Ð¾Ñ€ÑÐ´Ð¾Ðº"
+              title="Перетащите, чтобы изменить порядок"
             >${tab.title}</button>`
             )
             .join('')}
@@ -481,11 +481,11 @@ function render() {
 function renderContent(moduleId, activeTab) {
   if (moduleId === 'ops' && activeTab === 'ops-dashboard') {
     return `
-      <div class="title-row">ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¾Ð½Ð½Ñ‹Ð¹ Ð¾Ð±Ð·Ð¾Ñ€</div>
+      <div class="title-row">Операционный обзор</div>
       <div class="grid">
-        <button class="card module-nav-card" data-open-tab="ops-mission-control"><h3>Ð¦ÐµÐ½Ñ‚Ñ€ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ</h3><p>ÐœÐ¾Ð´ÐµÐ»ÑŒ, ÑÐµÑÑÐ¸Ð¸, cron Ð¸ Ð±Ñ‹ÑÑ‚Ñ€Ñ‹Ð¹ health-check.</p></button>
-        <button class="card module-nav-card" data-open-tab="ops-org-chart"><h3>ÐžÑ€Ð³Ð´Ð¸Ð°Ð³Ñ€Ð°Ð¼Ð¼Ð°</h3><p>Ð§ÐµÑ€Ð½Ð¾Ð²Ð¾Ð¹ ÐºÐ°Ñ€ÐºÐ°Ñ Ð¸ÐµÑ€Ð°Ñ€Ñ…Ð¸Ð¸ Ð°Ð³ÐµÐ½Ñ‚Ð¾Ð² Ð¸ Ð¿Ð¾Ð¼Ð¾Ñ‰Ð½Ð¸ÐºÐ¾Ð².</p></button>
-        <div class="card"><h3>Ð˜Ð½Ñ†Ð¸Ð´ÐµÐ½Ñ‚Ñ‹</h3><p>Ð¡Ð±Ð¾Ð¸, Ð°Ð»ÐµÑ€Ñ‚Ñ‹ Ð¸ Ð´Ð¸Ð°Ð³Ð½Ð¾ÑÑ‚Ð¸ÐºÐ°.</p></div>
+        <button class="card module-nav-card" data-open-tab="ops-mission-control"><h3>Центр управления</h3><p>Модель, сессии, cron и быстрый health-check.</p></button>
+        <button class="card module-nav-card" data-open-tab="ops-org-chart"><h3>Оргдиаграмма</h3><p>Черновой каркас иерархии агентов и помощников.</p></button>
+        <div class="card"><h3>Инциденты</h3><p>Сбои, алерты и диагностика.</p></div>
       </div>
     `;
   }
@@ -499,11 +499,11 @@ function renderContent(moduleId, activeTab) {
 
   if (moduleId === 'brain' && activeTab === 'brain-dashboard') {
     return `
-      <div class="title-row">ÐžÐ±Ð·Ð¾Ñ€ Brain</div>
+      <div class="title-row">Обзор Brain</div>
       <div class="grid">
-        <button class="card module-nav-card" data-open-tab="brain-daily-summaries"><h3>Ð•Ð¶ÐµÐ´Ð½ÐµÐ²Ð½Ñ‹Ðµ ÑÐ²Ð¾Ð´ÐºÐ¸</h3><p>ÐŸÑ€Ð¸Ð¾Ñ€Ð¸Ñ‚ÐµÑ‚Ñ‹ Ð´Ð½Ñ, Ñ€Ð¸ÑÐºÐ¸ Ð¸ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ðµ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ñ.</p></button>
-        <button class="card module-nav-card" data-open-tab="brain-skills-directory"><h3>Skills Directory</h3><p>Ð•Ð´Ð¸Ð½Ñ‹Ð¹ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³ skills Ð¸ plug-ins: Ð¸ÑÑ‚Ð¾Ñ‡Ð½Ð¸Ðº, ÑÑ‚Ð°Ñ‚ÑƒÑ Ð¸ Ð¾Ð¿Ð¸ÑÐ°Ð½Ð¸Ðµ.</p></button>
-        <button class="card module-nav-card" data-open-tab="brain-automation"><h3>Automations</h3><p>Ð¢Ð°Ð±Ð»Ð¸Ñ†Ð° Ð²ÑÐµÑ… cron-Ð·Ð°Ð´Ð°Ñ‡ Ñ Ñ€Ð°ÑÐºÑ€Ñ‹Ñ‚Ð¸ÐµÐ¼ Ð¿Ð¾Ð»Ð½Ð¾Ð¹ ÐºÐ¾Ð½Ñ„Ð¸Ð³ÑƒÑ€Ð°Ñ†Ð¸Ð¸.</p></button>
+        <button class="card module-nav-card" data-open-tab="brain-daily-summaries"><h3>Ежедневные сводки</h3><p>Приоритеты дня, риски и следующие действия.</p></button>
+        <button class="card module-nav-card" data-open-tab="brain-skills-directory"><h3>Skills Directory</h3><p>Единый каталог skills и plug-ins: источник, статус и описание.</p></button>
+        <button class="card module-nav-card" data-open-tab="brain-automation"><h3>Automations</h3><p>Таблица всех cron-задач с раскрытием полной конфигурации.</p></button>
       </div>
     `;
   }
@@ -515,7 +515,7 @@ function renderContent(moduleId, activeTab) {
   if (moduleId === 'lab' && activeTab === 'lab-dashboard') return renderLabDashboard();
   if (moduleId === 'lab' && activeTab === 'lab-prototype-factory') return renderPrototypeFactory();
 
-  return '<div class="session-meta">ÐÐµÑ‚ Ð´Ð°Ð½Ð½Ñ‹Ñ….</div>';
+  return '<div class="session-meta">Нет данных.</div>';
 }
 
 function highlightMarkdownByQuery(content, query) {
@@ -555,13 +555,13 @@ function renderOpsDashboard() {
     <section class="ops-dashboard-v2">
       <header class="ops-dash-head">
         <h2>Ops Dashboard</h2>
-        <p>Operations overview â€” click any card to dive deeper</p>
+        <p>Operations overview — click any card to dive deeper</p>
       </header>
 
       <div class="ops-metric-grid">
         <article class="ops-metric-card" data-open-tab="ops-mission-control">
           <small>MODEL</small>
-          <strong>${escapeHtml(m.model || 'â€”')}</strong>
+          <strong>${escapeHtml(m.model || '—')}</strong>
           <span class="session-meta ${m.sourceConnected ? 'ok' : ''}">${m.sourceConnected ? 'online' : 'offline'}</span>
         </article>
         <article class="ops-metric-card" data-open-tab="ops-mission-control">
@@ -588,9 +588,9 @@ function renderOpsDashboard() {
             ${sessions
               .slice(0, 6)
               .map(
-                (s) => `<button class="ops-session-row" data-open-session="${escapeHtml(s.sessionKey || '')}"><span>${escapeHtml(s.title || 'session')}</span><span>${escapeHtml(s.ago || 'â€”')}</span></button>`
+                (s) => `<button class="ops-session-row" data-open-session="${escapeHtml(s.sessionKey || '')}"><span>${escapeHtml(s.title || 'session')}</span><span>${escapeHtml(s.ago || '—')}</span></button>`
               )
-              .join('') || '<div class="session-meta">ÐÐµÑ‚ Ð°ÐºÑ‚Ð¸Ð²Ð½Ñ‹Ñ… ÑÐµÑÑÐ¸Ð¹</div>'}
+              .join('') || '<div class="session-meta">Нет активных сессий</div>'}
           </div>
         </section>
 
@@ -608,9 +608,9 @@ function renderOpsDashboard() {
       </div>
 
       <div class="ops-shortcuts-grid">
-        <button class="ops-shortcut" data-open-tab="ops-org-chart"><h4>ÐšÐ¾Ð¼Ð°Ð½Ð´Ð°</h4><p>Ð¡Ñ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ð° Ð°Ð³ÐµÐ½Ñ‚Ð¾Ð² Ð¸ Ñ€Ð¾Ð»ÐµÐ¹</p></button>
-        <button class="ops-shortcut" data-open-tab="ops-workspaces"><h4>Workspaces</h4><p>SOUL.md, IDENTITY.md, TOOLS.md Ð¸ Ð´Ñ€.</p></button>
-        <button class="ops-shortcut" data-open-tab="ops-docs"><h4>Docs</h4><p>Ð¡Ð¸ÑÑ‚ÐµÐ¼Ð½Ð°Ñ Ð´Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ñ†Ð¸Ñ Ñ Ð¿Ð¾Ð¸ÑÐºÐ¾Ð¼</p></button>
+        <button class="ops-shortcut" data-open-tab="ops-org-chart"><h4>Команда</h4><p>Структура агентов и ролей</p></button>
+        <button class="ops-shortcut" data-open-tab="ops-workspaces"><h4>Workspaces</h4><p>SOUL.md, IDENTITY.md, TOOLS.md и др.</p></button>
+        <button class="ops-shortcut" data-open-tab="ops-docs"><h4>Docs</h4><p>Системная документация с поиском</p></button>
       </div>
     </section>
     ${renderPmTaskModal()}
@@ -644,7 +644,7 @@ async function savePmTaskMeta(taskId, patch = {}) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
-  if (!response.ok) throw new Error('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¾Ð±Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ ÐºÐ°Ñ€Ñ‚Ð¾Ñ‡ÐºÑƒ');
+  if (!response.ok) throw new Error('Не удалось обновить карточку');
   await loadOpsBoard();
   openPmTaskModal(taskId);
 }
@@ -667,11 +667,11 @@ function renderPmTaskModal() {
     review: 'review',
     execution: 'execution',
     update: 'done',
-  }[String(t.stage || '').toLowerCase()] || String(t.stage || 'â€”');
+  }[String(t.stage || '').toLowerCase()] || String(t.stage || '—');
 
   const dueMs = t.dueAt ? new Date(t.dueAt).getTime() : NaN;
   const leftDays = Number.isFinite(dueMs) ? Math.ceil((dueMs - Date.now()) / 86400000) : null;
-  const dueHint = leftDays === null ? 'â€”' : leftDays >= 0 ? `${leftDays}d left` : `${Math.abs(leftDays)}d overdue`;
+  const dueHint = leftDays === null ? '—' : leftDays >= 0 ? `${leftDays}d left` : `${Math.abs(leftDays)}d overdue`;
 
   const history = [
     { stage: stageLabel, at: t.updatedAt || t.dueAt || new Date().toISOString() },
@@ -681,11 +681,11 @@ function renderPmTaskModal() {
   return `
     <div class="pm-modal-backdrop" id="pmTaskModalBackdrop">
       <div class="pm-modal pm-modal-luxe" role="dialog" aria-modal="true">
-        <button class="session-modal-close" id="pmTaskModalClose" title="Ð—Ð°ÐºÑ€Ñ‹Ñ‚ÑŒ">âœ•</button>
+        <button class="session-modal-close" id="pmTaskModalClose" title="Закрыть">✕</button>
 
         <div class="pm-modal-title-wrap">
           <h3>${escapeHtml(t.title || 'Task')}</h3>
-          <div class="pm-modal-client">${escapeHtml(t.clientName || 'â€”')}</div>
+          <div class="pm-modal-client">${escapeHtml(t.clientName || '—')}</div>
         </div>
 
         <div class="pm-modal-grid">
@@ -703,7 +703,7 @@ function renderPmTaskModal() {
               <button class="pm-priority-option pr-critical" data-pm-priority-option="critical">Critical</button>
             </div>
           </div>
-          <div><small>ASSIGNEE</small><strong>ðŸ‘¤ ${escapeHtml(t.assignee || 'ÐÐ½Ð´Ñ€ÐµÐ¹')}</strong></div>
+          <div><small>ASSIGNEE</small><strong>👤 ${escapeHtml(t.assignee || 'Андрей')}</strong></div>
           <div><small>DUE DATE</small><strong>${escapeHtml(formatTime(t.dueAt))} <span class="pm-subtle">(${escapeHtml(dueHint)})</span></strong></div>
           <div><small>STAGE</small><strong>${escapeHtml(stageLabel)}</strong></div>
         </div>
@@ -714,14 +714,14 @@ function renderPmTaskModal() {
             ${Array.isArray(t.tags) && t.tags.length
               ? t.tags
                   .map(
-                    (x) => `<span class="pm-chip">#${escapeHtml(x)} <button class="pm-chip-x" data-pm-tag-remove="${escapeHtml(x)}" title="Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ñ‚ÐµÐ³">Ã—</button></span>`
+                    (x) => `<span class="pm-chip">#${escapeHtml(x)} <button class="pm-chip-x" data-pm-tag-remove="${escapeHtml(x)}" title="Удалить тег">×</button></span>`
                   )
                   .join('')
               : '<span class="session-meta">No tags</span>'}
           </div>
           <div class="pm-tag-input-row">
-            <input class="search-input" data-pm-tag-input placeholder="Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ñ‚ÐµÐ³ (Ð½Ð°Ð¿Ñ€Ð¸Ð¼ÐµÑ€ urgent)" />
-            <button class="ghost-btn" data-pm-tag-add>Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ</button>
+            <input class="search-input" data-pm-tag-input placeholder="Добавить тег (например urgent)" />
+            <button class="ghost-btn" data-pm-tag-add>Добавить</button>
           </div>
         </div>
 
@@ -784,11 +784,11 @@ function renderOpsBoard() {
         <div class="pm-luxe-kpis">
           <span>Tasks <b>${tasks.length}</b></span>
           <span>Blocked <b>${blockedCount}</b></span>
-          <span>Assignee <b>ÐÐ½Ð´Ñ€ÐµÐ¹</b></span>
+          <span>Assignee <b>Андрей</b></span>
         </div>
       </header>
 
-      ${b.loading ? '<div class="session-meta">Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ°â€¦</div>' : ''}
+      ${b.loading ? '<div class="session-meta">Загрузка…</div>' : ''}
       ${b.error ? `<div class="session-meta" style="color:#ff9cb3;">${escapeHtml(b.error)}</div>` : ''}
 
       <div class="pm-luxe-grid">
@@ -809,17 +809,17 @@ function renderOpsBoard() {
                         .map((t) => {
                           const pr = String(t.priority || 'medium').toLowerCase();
                           const isBlocked = t.status === 'blocked' || (t.blockers || []).length;
-                          const due = t.dueAt ? formatTime(t.dueAt) : 'â€”';
+                          const due = t.dueAt ? formatTime(t.dueAt) : '—';
                           return `
                             <article class="pm-luxe-task" draggable="true" data-pm-task-id="${t.id}" data-pm-stage="${stage}" data-open-pm-task="${t.id}">
                               <div class="pm-task-top">
                                 <strong>${escapeHtml(t.title)}</strong>
                                 <span class="pm-priority pr-${pr}">${escapeHtml(priorityLabels[pr] || pr)}</span>
                               </div>
-                              <div class="pm-task-client">${escapeHtml(t.clientName || 'â€”')}</div>
+                              <div class="pm-task-client">${escapeHtml(t.clientName || '—')}</div>
                               ${isBlocked ? `<div class="pm-task-alert">âš  ${escapeHtml((t.blockers || [])[0]?.reason || 'Blocked')}</div>` : ''}
                               <div class="pm-task-meta">
-                                <span>ðŸ‘¤ ${escapeHtml(t.assignee || 'ÐÐ½Ð´Ñ€ÐµÐ¹')}</span>
+                                <span>👤 ${escapeHtml(t.assignee || 'Андрей')}</span>
                                 <span>â± ${escapeHtml(due)}</span>
                               </div>
                             </article>
@@ -863,28 +863,28 @@ function renderStandupModal() {
   return `
     <div class="pm-modal-backdrop" id="standupModalBackdrop">
       <div class="pm-modal pm-modal-luxe" role="dialog" aria-modal="true">
-        <button class="session-modal-close" id="standupModalClose" title="Ð—Ð°ÐºÑ€Ñ‹Ñ‚ÑŒ">âœ•</button>
+        <button class="session-modal-close" id="standupModalClose" title="Закрыть">✕</button>
 
         <div class="pm-modal-title-wrap">
-          <h3>ðŸ‘¥ ${escapeHtml(s.title || 'Ð¡Ñ‚ÐµÐ½Ð´Ð°Ð¿')}</h3>
-          <div class="pm-modal-client">${escapeHtml(s.day || '')} Â· ${escapeHtml(s.time || '')} Â· ${escapeHtml(s.duration || '15 Ð¼Ð¸Ð½')} <span class="standups-pill" style="margin-left:6px;">Ð•Ð–Ð•Ð”ÐÐ•Ð’ÐÐž</span></div>
+          <h3>👥 ${escapeHtml(s.title || 'Стендап')}</h3>
+          <div class="pm-modal-client">${escapeHtml(s.day || '')} · ${escapeHtml(s.time || '')} · ${escapeHtml(s.duration || '15 мин')} <span class="standups-pill" style="margin-left:6px;">ЕЖЕДНЕВНО</span></div>
         </div>
 
         <div class="pm-modal-section">
-          <small>Ð£Ð§ÐÐ¡Ð¢ÐÐ˜ÐšÐ˜</small>
+          <small>УЧАСТНИКИ</small>
           <div class="pm-tags-wrap">
-            ${participants.map((p) => `<span class="pm-chip">${escapeHtml(p)}</span>`).join('') || '<span class="session-meta">ÐÐµÑ‚ ÑƒÑ‡Ð°ÑÑ‚Ð½Ð¸ÐºÐ¾Ð²</span>'}
+            ${participants.map((p) => `<span class="pm-chip">${escapeHtml(p)}</span>`).join('') || '<span class="session-meta">Нет участников</span>'}
           </div>
         </div>
 
         <div class="pm-modal-section">
-          <small>ÐžÐ‘Ð¡Ð£Ð–Ð”ÐÐÐÐ«Ð• Ð¢Ð•ÐœÐ«</small>
+          <small>ОБСУЖДЁННЫЕ ТЕМЫ</small>
           <div class="standup-topic-list">
             ${topics
               .map(
                 (t) => `<div class="standup-topic-row ${t.status === 'done' ? 'done' : 'progress'}">
-                  <span>â€¢ ${escapeHtml(t.text || 'â€”')}</span>
-                  <b>${t.status === 'done' ? 'Ð³Ð¾Ñ‚Ð¾Ð²Ð¾' : 'Ð² Ñ€Ð°Ð±Ð¾Ñ‚Ðµ'}</b>
+                  <span>â€¢ ${escapeHtml(t.text || '—')}</span>
+                  <b>${t.status === 'done' ? 'готово' : 'в работе'}</b>
                 </div>`
               )
               .join('')}
@@ -892,8 +892,8 @@ function renderStandupModal() {
         </div>
 
         <div class="pm-modal-section">
-          <small>Ð¡Ð’ÐžÐ”ÐšÐ</small>
-          <div class="pm-note-box">${escapeHtml(s.summary || 'Ð‘ÐµÐ· Ð±Ð»Ð¾ÐºÐµÑ€Ð¾Ð². Ð Ð°Ð±Ð¾Ñ‚Ð° Ð¿Ð¾ Ð¿Ð»Ð°Ð½Ñƒ.')}</div>
+          <small>СВОДКА</small>
+          <div class="pm-note-box">${escapeHtml(s.summary || 'Без блокеров. Работа по плану.')}</div>
         </div>
       </div>
     </div>
@@ -909,22 +909,22 @@ function renderOpsStandups() {
   const cursor = new Date(state.standupsCursorMs || Date.now());
   cursor.setHours(0, 0, 0, 0);
 
-  const weekDayNames = ['ÐŸÐ', 'Ð’Ð¢', 'Ð¡Ð ', 'Ð§Ð¢', 'ÐŸÐ¢', 'Ð¡Ð‘', 'Ð’Ð¡'];
-  const monthNames = ['ÑÐ½Ð²Ð°Ñ€ÑŒ', 'Ñ„ÐµÐ²Ñ€Ð°Ð»ÑŒ', 'Ð¼Ð°Ñ€Ñ‚', 'Ð°Ð¿Ñ€ÐµÐ»ÑŒ', 'Ð¼Ð°Ð¹', 'Ð¸ÑŽÐ½ÑŒ', 'Ð¸ÑŽÐ»ÑŒ', 'Ð°Ð²Ð³ÑƒÑÑ‚', 'ÑÐµÐ½Ñ‚ÑÐ±Ñ€ÑŒ', 'Ð¾ÐºÑ‚ÑÐ±Ñ€ÑŒ', 'Ð½Ð¾ÑÐ±Ñ€ÑŒ', 'Ð´ÐµÐºÐ°Ð±Ñ€ÑŒ'];
+  const weekDayNames = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
+  const monthNames = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
 
   const buildStandupPayload = (dateObj, dueTasks = []) => ({
-    title: dueTasks.length ? `Ð¡Ñ‚ÐµÐ½Ð´Ð°Ð¿ Ð¿Ð¾ Ð·Ð°Ð´Ð°Ñ‡Ð°Ð¼ Ð´Ð½Ñ (${dueTasks.length})` : 'ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¾Ð½Ð½Ñ‹Ð¹ ÑÐ¸Ð½Ðº',
+    title: dueTasks.length ? `Стендап по задачам дня (${dueTasks.length})` : 'Операционный синк',
     day: dateObj.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' }),
     time: '09:00',
-    duration: '15 Ð¼Ð¸Ð½',
-    lead: 'Ð¡Ñ‚Ð¸Ð²',
-    participants: ['ÐÐ½Ð´Ñ€ÐµÐ¹', 'Ð¡Ñ‚Ð¸Ð²'],
+    duration: '15 мин',
+    lead: 'Стив',
+    participants: ['Андрей', 'Стив'],
     topics: [
-      { text: `ÐžÐ±Ð·Ð¾Ñ€ Ð·Ð°Ð´Ð°Ñ‡ Ð½Ð° Ð´ÐµÐ½ÑŒ (${dueTasks.length})`, status: dueTasks.length ? 'progress' : 'done' },
-      { text: 'ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° SLA Ð¸ Ð±Ð»Ð¾ÐºÐµÑ€Ð¾Ð²', status: blocked ? 'progress' : 'done' },
-      { text: 'Ð¤Ð¸ÐºÑÐ°Ñ†Ð¸Ñ Ñ€ÐµÑˆÐµÐ½Ð¸Ð¹ Ð¸ next steps', status: 'done' },
+      { text: `Обзор задач на день (${dueTasks.length})`, status: dueTasks.length ? 'progress' : 'done' },
+      { text: 'Проверка SLA и блокеров', status: blocked ? 'progress' : 'done' },
+      { text: 'Фиксация решений и next steps', status: 'done' },
     ],
-    summary: `Ð—Ð°Ð´Ð°Ñ‡: ${tasks.length}, Ð±Ð»Ð¾ÐºÐµÑ€Ñ‹: ${blocked}, Ð¿Ñ€Ð¾ÑÑ€Ð¾Ñ‡ÐµÐ½Ð¾: ${overdue}.`,
+    summary: `Задач: ${tasks.length}, блокеры: ${blocked}, просрочено: ${overdue}.`,
   });
 
   const tasksByDate = tasks.reduce((acc, t) => {
@@ -956,7 +956,7 @@ function renderOpsStandups() {
     };
   });
 
-  const weekRange = `${weekDays[0].date} ${monthNames[new Date(weekDays[0].iso).getMonth()]} â€” ${weekDays[6].date} ${monthNames[new Date(weekDays[6].iso).getMonth()]}`;
+  const weekRange = `${weekDays[0].date} ${monthNames[new Date(weekDays[0].iso).getMonth()]} — ${weekDays[6].date} ${monthNames[new Date(weekDays[6].iso).getMonth()]}`;
 
   const monthStart = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
   const monthEnd = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 0);
@@ -982,21 +982,21 @@ function renderOpsStandups() {
   return `
     <section class="standups-v2-shell">
       <header class="standups-v2-head">
-        <div class="standups-v2-title">ðŸ‘¥ Ð¡Ñ‚ÐµÐ½Ð´Ð°Ð¿Ñ‹</div>
+        <div class="standups-v2-title">👥 Стендапы</div>
         <div class="standups-v2-controls">
-          <button class="standups-toggle ${view === 'week' ? 'active' : ''}" data-standups-view="week">ÐÐµÐ´ÐµÐ»Ñ</button>
-          <button class="standups-toggle ${view === 'month' ? 'active' : ''}" data-standups-view="month">ÐœÐµÑÑÑ†</button>
-          <button class="standups-nav-btn" data-standups-nav="prev">â€¹</button>
+          <button class="standups-toggle ${view === 'week' ? 'active' : ''}" data-standups-view="week">Неделя</button>
+          <button class="standups-toggle ${view === 'month' ? 'active' : ''}" data-standups-view="month">Месяц</button>
+          <button class="standups-nav-btn" data-standups-nav="prev">‹</button>
           <span class="standups-range">${escapeHtml(view === 'week' ? weekRange : monthLabel)}</span>
-          <button class="standups-nav-btn" data-standups-nav="next">â€º</button>
+          <button class="standups-nav-btn" data-standups-nav="next">›</button>
         </div>
       </header>
 
       <div class="standups-v2-kpi">
-        <span>Ð—Ð°Ð´Ð°Ñ‡Ð¸ PM <b>${tasks.length}</b></span>
-        <span>Ð—Ð°Ð±Ð»Ð¾ÐºÐ¸Ñ€Ð¾Ð²Ð°Ð½Ð¾ <b>${blocked}</b></span>
-        <span>ÐŸÑ€Ð¾ÑÑ€Ð¾Ñ‡ÐµÐ½Ð¾ <b>${overdue}</b></span>
-        <span>Ð˜ÑÑ‚Ð¾Ñ‡Ð½Ð¸Ðº <b>PM-Ð´Ð¾ÑÐºÐ°</b></span>
+        <span>Задачи PM <b>${tasks.length}</b></span>
+        <span>Заблокировано <b>${blocked}</b></span>
+        <span>Просрочено <b>${overdue}</b></span>
+        <span>Источник <b>PM-доска</b></span>
       </div>
 
       ${view === 'week'
@@ -1010,13 +1010,13 @@ function renderOpsStandups() {
                       ? d.items
                           .map(
                             (it) => `<button class="standups-event-card" data-open-standup='${escapeHtml(JSON.stringify(it))}'>
-                              <div class="standups-event-tag">Ð•Ð–Ð•Ð”ÐÐ•Ð’ÐÐž</div>
+                              <div class="standups-event-tag">ЕЖЕДНЕВНО</div>
                               <h4>${escapeHtml(it.title)}</h4>
-                              <p>ðŸ•˜ ${escapeHtml(it.time)} Â· ${escapeHtml(it.lead)}</p>
+                              <p>🕘 ${escapeHtml(it.time)} · ${escapeHtml(it.lead)}</p>
                             </button>`
                           )
                           .join('')
-                      : '<div class="standups-empty-slot">â€”</div>'}
+                      : '<div class="standups-empty-slot">—</div>'}
                   </div>
                 </section>`
               )
@@ -1060,7 +1060,7 @@ function renderOpsDocs() {
           ${d.items
             .filter((it) => !d.query || it.title.toLowerCase().includes(d.query.toLowerCase()))
             .map((it) => `<button class="daily-item ${it.file === d.selectedFile ? 'active' : ''}" data-ops-doc-file="${it.file}">${escapeHtml(it.title)}</button>`)
-            .join('') || '<div class="session-meta">ÐÐµÑ‚ Ñ„Ð°Ð¹Ð»Ð¾Ð²</div>'}
+            .join('') || '<div class="session-meta">Нет файлов</div>'}
         </div>
       </aside>
       <article class="split-preview markdown-preview pleasant-markdown">${highlightMarkdownByQuery(d.content, d.query)}</article>
@@ -1082,7 +1082,7 @@ function renderOpsWorkspaces() {
           ${(selected?.files || [])
             .filter((f) => !w.query || f.toLowerCase().includes(w.query.toLowerCase()))
             .map((f) => `<button class="daily-item ${f === w.selectedFile ? 'active' : ''}" data-ops-workspace-file="${escapeHtml(f)}">${escapeHtml(f)}</button>`)
-            .join('') || '<div class="session-meta">ÐÐµÑ‚ Ñ„Ð°Ð¹Ð»Ð¾Ð²</div>'}
+            .join('') || '<div class="session-meta">Нет файлов</div>'}
         </div>
       </aside>
       <article class="split-preview markdown-preview pleasant-markdown">${highlightMarkdownByQuery(w.content, w.query)}</article>
@@ -1093,23 +1093,23 @@ function renderOpsWorkspaces() {
 function renderDailySummaries() {
   const d = state.dailySummaries;
   return `
-    <h2 class="section-title">Ð•Ð¶ÐµÐ´Ð½ÐµÐ²Ð½Ñ‹Ðµ ÑÐ²Ð¾Ð´ÐºÐ¸</h2>
+    <h2 class="section-title">Ежедневные сводки</h2>
     <section class="daily-layout panel">
       <aside class="daily-sidebar">
-        <div class="daily-sidebar-title">Ð˜ÑÑ‚Ð¾Ñ€Ð¸Ñ</div>
+        <div class="daily-sidebar-title">История</div>
         <div class="daily-list">
           ${d.items.length === 0
-            ? '<div class="session-meta">ÐŸÐ¾ÐºÐ° Ð½ÐµÑ‚ ÑÐ²Ð¾Ð´Ð¾Ðº</div>'
+            ? '<div class="session-meta">Пока нет сводок</div>'
             : d.items.map((it) => `<button class="daily-item ${it.file === d.selectedFile ? 'active' : ''}" data-daily-file="${it.file}">${it.title}</button>`).join('')}
         </div>
       </aside>
       <article class="daily-viewer">
         <div class="daily-viewer-head">
-          <strong>${d.selectedFile ? d.selectedFile.replace(/\.md$/i, '') : 'ÐŸÐ¾ÑÐ»ÐµÐ´Ð½ÑÑ ÑÐ²Ð¾Ð´ÐºÐ°'}</strong>
-          ${d.loading ? '<span class="session-meta">Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ°â€¦</span>' : ''}
+          <strong>${d.selectedFile ? d.selectedFile.replace(/\.md$/i, '') : 'Последняя сводка'}</strong>
+          ${d.loading ? '<span class="session-meta">Загрузка…</span>' : ''}
         </div>
         ${d.error ? `<div class="session-meta" style="color:#ff9cb3;">${escapeHtml(d.error)}</div>` : ''}
-        <div class="daily-markdown">${d.content ? markdownToHtml(d.content) : '<p class="session-meta">ÐÐµÑ‚ Ð´Ð°Ð½Ð½Ñ‹Ñ….</p>'}</div>
+        <div class="daily-markdown">${d.content ? markdownToHtml(d.content) : '<p class="session-meta">Нет данных.</p>'}</div>
       </article>
     </section>
   `;
@@ -1165,29 +1165,29 @@ function renderSkillsDirectory() {
         <input class="search-input skills-search" data-skill-search placeholder="Search skills..." value="${escapeHtml(d.query || '')}" />
       </div>
 
-      ${d.loading ? '<div class="session-meta">Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð°â€¦</div>' : ''}
+      ${d.loading ? '<div class="session-meta">Загрузка каталога…</div>' : ''}
       ${d.error ? `<div class="session-meta" style="color:#ff9cb3;">${escapeHtml(d.error)}</div>` : ''}
 
       <div class="skills-grid">
         ${filtered.length === 0
-          ? '<div class="session-meta">ÐÐ¸Ñ‡ÐµÐ³Ð¾ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½Ð¾ Ð¿Ð¾ Ñ‚ÐµÐºÑƒÑ‰ÐµÐ¼Ñƒ Ñ„Ð¸Ð»ÑŒÑ‚Ñ€Ñƒ.</div>'
+          ? '<div class="session-meta">Ничего не найдено по текущему фильтру.</div>'
           : filtered
               .map(
                 (x) => `<article class="skill-card">
                     <div class="skill-card-head">
                       <div class="skill-icon">â—ˆ</div>
                       <div>
-                        <h4>${escapeHtml(x.name || x.id || 'â€”')}</h4>
+                        <h4>${escapeHtml(x.name || x.id || '—')}</h4>
                         <small>${escapeHtml((x.id || '').replace(/^.*:/, ''))}</small>
                       </div>
                     </div>
                     <p>${escapeHtml(x.description || 'No description')}</p>
                     <div class="skill-tags">
-                      <span class="skill-tag kind-${escapeHtml((x.kind || 'unknown').toLowerCase())}">${escapeHtml(x.kindLabel || x.kind || 'â€”')}</span>
-                      <span class="skill-tag source-${escapeHtml((x.origin || 'unknown').toLowerCase().replace(/[^a-z-]/g, '-'))}">${escapeHtml(x.origin || 'â€”')}</span>
-                      <span class="skill-tag status">${escapeHtml(x.statusLabel || x.status || 'â€”')}</span>
+                      <span class="skill-tag kind-${escapeHtml((x.kind || 'unknown').toLowerCase())}">${escapeHtml(x.kindLabel || x.kind || '—')}</span>
+                      <span class="skill-tag source-${escapeHtml((x.origin || 'unknown').toLowerCase().replace(/[^a-z-]/g, '-'))}">${escapeHtml(x.origin || '—')}</span>
+                      <span class="skill-tag status">${escapeHtml(x.statusLabel || x.status || '—')}</span>
                       ${x.kind === 'plugin' ? `<span class="skill-tag ${x.enabled ? 'plugin-enabled' : 'plugin-disabled'}">${x.enabled ? 'enabled' : 'disabled'}</span>` : ''}
-                      ${x.kind === 'plugin' ? `<span class="skill-tag utilization ${x.utilization?.inAutomations ? 'in-use' : ''}">${escapeHtml(x.utilization?.summary || 'â€”')}</span>` : ''}
+                      ${x.kind === 'plugin' ? `<span class="skill-tag utilization ${x.utilization?.inAutomations ? 'in-use' : ''}">${escapeHtml(x.utilization?.summary || '—')}</span>` : ''}
                     </div>
                   </article>`
               )
@@ -1200,7 +1200,7 @@ function renderSkillsDirectory() {
 function getModelPill(modelRaw) {
   const raw = String(modelRaw || '').trim().toLowerCase();
 
-  if (!raw || raw === 'â€”' || raw === '-' || raw === 'default') {
+  if (!raw || raw === '—' || raw === '-' || raw === 'default') {
     return { label: 'GPT 5.3', tone: 'gpt' };
   }
   if (raw.includes('gemini')) {
@@ -1262,14 +1262,14 @@ async function saveAutomationEditModal() {
 
     if (!response.ok) {
       const payload = await response.json().catch(() => ({}));
-      throw new Error(payload?.error || 'ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ ÑÐ¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ cron-Ð·Ð°Ð´Ð°Ñ‡Ñƒ');
+      throw new Error(payload?.error || 'Не удалось сохранить cron-задачу');
     }
 
     await loadAutomationData({ silent: true });
     closeAutomationEditModal();
   } catch (err) {
     state.automation.editModal.saving = false;
-    state.automation.editModal.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ';
+    state.automation.editModal.error = err?.message || 'Ошибка сохранения';
     render();
   }
 }
@@ -1281,25 +1281,25 @@ function renderAutomationEditModal() {
   return `
     <div class="session-modal-backdrop" id="automationEditBackdrop">
       <div class="session-modal" style="max-width:900px;" role="dialog" aria-modal="true">
-        <button class="session-modal-close" id="automationEditClose" title="Ð—Ð°ÐºÑ€Ñ‹Ñ‚ÑŒ">âœ•</button>
+        <button class="session-modal-close" id="automationEditClose" title="Закрыть">✕</button>
         <div class="session-modal-header">
-          <h3>Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ cron-Ð·Ð°Ð´Ð°Ñ‡Ð¸</h3>
+          <h3>Редактирование cron-задачи</h3>
         </div>
 
         <div class="automation-edit-grid">
-          <label><small>ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ</small><input class="search-input" data-auto-edit="name" value="${escapeHtml(m.form.name || '')}"/></label>
+          <label><small>Название</small><input class="search-input" data-auto-edit="name" value="${escapeHtml(m.form.name || '')}"/></label>
           <label><small>Timezone</small><input class="search-input" data-auto-edit="scheduleTz" value="${escapeHtml(m.form.scheduleTz || 'Asia/Vladivostok')}"/></label>
-          <label style="grid-column:1 / -1;"><small>ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ</small><input class="search-input" data-auto-edit="description" value="${escapeHtml(m.form.description || '')}"/></label>
+          <label style="grid-column:1 / -1;"><small>Описание</small><input class="search-input" data-auto-edit="description" value="${escapeHtml(m.form.description || '')}"/></label>
           <label style="grid-column:1 / -1;"><small>Cron expression</small><input class="search-input" data-auto-edit="scheduleExpr" value="${escapeHtml(m.form.scheduleExpr || '')}" placeholder="0 8 * * *"/></label>
-          <label style="grid-column:1 / -1;"><small>Ð˜Ð½ÑÑ‚Ñ€ÑƒÐºÑ†Ð¸Ð¸ (message)</small><textarea class="search-input" data-auto-edit="message" style="min-height:180px;resize:vertical;">${escapeHtml(m.form.message || '')}</textarea></label>
+          <label style="grid-column:1 / -1;"><small>Инструкции (message)</small><textarea class="search-input" data-auto-edit="message" style="min-height:180px;resize:vertical;">${escapeHtml(m.form.message || '')}</textarea></label>
           <label class="automation-enabled-toggle"><input type="checkbox" data-auto-edit="enabled" ${m.form.enabled ? 'checked' : ''}/> <span>Enabled</span></label>
         </div>
 
         ${m.error ? `<div class="session-meta" style="color:#ff9cb3;margin-top:10px;">${escapeHtml(m.error)}</div>` : ''}
 
         <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:14px;">
-          <button class="ghost-btn" id="automationEditCancel">ÐžÑ‚Ð¼ÐµÐ½Ð°</button>
-          <button class="ghost-btn" id="automationEditSave">${m.saving ? 'Ð¡Ð¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµâ€¦' : 'Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ'}</button>
+          <button class="ghost-btn" id="automationEditCancel">Отмена</button>
+          <button class="ghost-btn" id="automationEditSave">${m.saving ? 'Сохранение…' : 'Сохранить'}</button>
         </div>
       </div>
     </div>
@@ -1324,23 +1324,23 @@ function renderAutomation() {
         <button class="pill-btn ${modelFilter === 'gemini' ? 'active' : ''}" data-automation-model-filter="gemini">Gemini</button>
         <button class="pill-btn ${modelFilter === 'openai' ? 'active' : ''}" data-automation-model-filter="openai">OpenAI</button>
       </div>
-      ${a.loading ? '<div class="session-meta" style="margin-bottom:10px;">Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ð·Ð°Ñ†Ð¸Ð¹â€¦</div>' : ''}
+      ${a.loading ? '<div class="session-meta" style="margin-bottom:10px;">Загрузка автоматизаций…</div>' : ''}
       ${a.error ? `<div class="session-meta" style="color:#ff9cb3;margin-bottom:10px;">${escapeHtml(a.error)}</div>` : ''}
 
       <table class="mc-table automation-table">
         <thead>
           <tr>
             <th style="width:60px;">#</th>
-            <th>ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ</th>
-            <th>Ð Ð°ÑÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ</th>
-            <th>Ð¡Ñ‚Ð°Ñ‚ÑƒÑ</th>
-            <th>ÐœÐ¾Ð´ÐµÐ»ÑŒ</th>
-            <th>Ð¡Ð»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ Ð·Ð°Ð¿ÑƒÑÐº</th>
+            <th>Название</th>
+            <th>Расписание</th>
+            <th>Статус</th>
+            <th>Модель</th>
+            <th>Следующий запуск</th>
           </tr>
         </thead>
         <tbody>
           ${jobs.length === 0
-            ? '<tr><td colspan="6" class="session-meta">ÐÐµÑ‚ cron-Ð·Ð°Ð´Ð°Ñ‡ Ð¿Ð¾Ð´ Ð²Ñ‹Ð±Ñ€Ð°Ð½Ð½Ñ‹Ð¹ Ñ„Ð¸Ð»ÑŒÑ‚Ñ€</td></tr>'
+            ? '<tr><td colspan="6" class="session-meta">Нет cron-задач под выбранный фильтр</td></tr>'
             : jobs
                 .map((job) => {
                   const isOpen = expandedSet.has(job.id);
@@ -1349,28 +1349,28 @@ function renderAutomation() {
                     <tr class="automation-row-main ${isOpen ? 'open' : ''}">
                       <td><button class="ghost-btn automation-expand-btn" data-automation-toggle-id="${escapeHtml(job.id || '')}">${isOpen ? 'âˆ’' : '+'}</button></td>
                       <td>${escapeHtml(job.name || 'cron')}</td>
-                      <td>${escapeHtml(job.schedule || 'â€”')}</td>
-                      <td>${escapeHtml(job.status || 'â€”')}</td>
-                      <td><span class="model-pill model-pill-${escapeHtml(modelPill.tone)}">${escapeHtml(modelPill.label || 'â€”')}</span></td>
-                      <td>${escapeHtml(job.nextRun || 'â€”')}</td>
+                      <td>${escapeHtml(job.schedule || '—')}</td>
+                      <td>${escapeHtml(job.status || '—')}</td>
+                      <td><span class="model-pill model-pill-${escapeHtml(modelPill.tone)}">${escapeHtml(modelPill.label || '—')}</span></td>
+                      <td>${escapeHtml(job.nextRun || '—')}</td>
                     </tr>
                     <tr class="automation-row-details ${isOpen ? 'open' : ''}">
                       <td colspan="6">
                         <div class="automation-details-grid">
-                          <div><small>ID</small><strong>${escapeHtml(job.id || 'â€”')}</strong></div>
-                          <div><small>ÐŸÐ¾ÑÐ»ÐµÐ´Ð½Ð¸Ð¹ Ð·Ð°Ð¿ÑƒÑÐº</small><strong>${escapeHtml(job.lastRun || 'â€”')}</strong></div>
-                          <div><small>Ð¡ÐµÑÑÐ¸Ñ</small><strong>${escapeHtml(job.sessionTarget || 'â€”')}</strong></div>
-                          <div><small>Payload</small><strong>${escapeHtml(job.payloadKind || 'â€”')}</strong></div>
-                          <div><small>Wake mode</small><strong>${escapeHtml(job.wakeMode || 'â€”')}</strong></div>
-                          <div><small>Delivery</small><strong>${escapeHtml([job.deliveryMode, job.deliveryChannel].filter(Boolean).join(' / ') || 'â€”')}</strong></div>
-                          <div><small>ÐžÑˆÐ¸Ð±ÐºÐ¸ Ð¿Ð¾Ð´Ñ€ÑÐ´</small><strong>${escapeHtml(String(job.consecutiveErrors ?? 0))}</strong></div>
+                          <div><small>ID</small><strong>${escapeHtml(job.id || '—')}</strong></div>
+                          <div><small>Последний запуск</small><strong>${escapeHtml(job.lastRun || '—')}</strong></div>
+                          <div><small>Сессия</small><strong>${escapeHtml(job.sessionTarget || '—')}</strong></div>
+                          <div><small>Payload</small><strong>${escapeHtml(job.payloadKind || '—')}</strong></div>
+                          <div><small>Wake mode</small><strong>${escapeHtml(job.wakeMode || '—')}</strong></div>
+                          <div><small>Delivery</small><strong>${escapeHtml([job.deliveryMode, job.deliveryChannel].filter(Boolean).join(' / ') || '—')}</strong></div>
+                          <div><small>Ошибки подряд</small><strong>${escapeHtml(String(job.consecutiveErrors ?? 0))}</strong></div>
                           <div><small>Enabled</small><strong>${job.enabled ? 'yes' : 'no'}</strong></div>
                         </div>
                         <div class="automation-instruction-block">
-                          <h4>Ð˜Ð½ÑÑ‚Ñ€ÑƒÐºÑ†Ð¸Ð¸ cron-Ð·Ð°Ð´Ð°Ñ‡Ð¸</h4>
-                          <pre class="history-text" style="font-size:13px;white-space:pre-wrap;">${escapeHtml(job.message || 'â€”')}</pre>
+                          <h4>Инструкции cron-задачи</h4>
+                          <pre class="history-text" style="font-size:13px;white-space:pre-wrap;">${escapeHtml(job.message || '—')}</pre>
                           <div style="margin-top:10px;display:flex;justify-content:flex-end;">
-                            <button class="ghost-btn" data-automation-edit-id="${escapeHtml(job.id || '')}">Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ</button>
+                            <button class="ghost-btn" data-automation-edit-id="${escapeHtml(job.id || '')}">Редактировать</button>
                           </div>
                         </div>
                       </td>
@@ -1393,28 +1393,28 @@ function renderSessionViewer() {
   return `
     <div class="session-modal-backdrop" id="sessionModalBackdrop">
       <div class="session-modal" role="dialog" aria-modal="true">
-        <button class="session-modal-close" id="sessionModalClose" title="Ð—Ð°ÐºÑ€Ñ‹Ñ‚ÑŒ">âœ•</button>
+        <button class="session-modal-close" id="sessionModalClose" title="Закрыть">✕</button>
         <div class="session-modal-header">
           <h3>${s.sessionKey || 'session'}</h3>
           <span class="badge success"><span class="dot green"></span>active</span>
         </div>
 
         <div class="session-head-grid">
-          <div><small>ÐšÐ»ÑŽÑ‡ ÑÐµÑÑÐ¸Ð¸</small><strong>${s.sessionKey || 'â€”'}</strong></div>
-          <div><small>ÐœÐ¾Ð´ÐµÐ»ÑŒ</small><strong>${s.model || 'â€”'}</strong></div>
-          <div><small>ÐšÐ°Ð½Ð°Ð»</small><strong>${s.channel || 'â€”'}</strong></div>
-          <div><small>Ð¢Ð¾ÐºÐµÐ½Ñ‹</small><strong>${s.tokens?.total ?? 0}</strong></div>
+          <div><small>Ключ сессии</small><strong>${s.sessionKey || '—'}</strong></div>
+          <div><small>Модель</small><strong>${s.model || '—'}</strong></div>
+          <div><small>Канал</small><strong>${s.channel || '—'}</strong></div>
+          <div><small>Токены</small><strong>${s.tokens?.total ?? 0}</strong></div>
         </div>
-        <div class="session-meta" style="margin-top:10px;">ÐžÐ±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¾: ${formatTime(s.updatedAt)}</div>
+        <div class="session-meta" style="margin-top:10px;">Обновлено: ${formatTime(s.updatedAt)}</div>
 
-        <div class="session-history-title"><span>Ð˜ÑÑ‚Ð¾Ñ€Ð¸Ñ ÑÐµÑÑÐ¸Ð¸</span></div>
+        <div class="session-history-title"><span>История сессии</span></div>
         <div class="session-history-body">
           ${v.loading
-            ? '<div class="session-meta">Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ð¸ÑÑ‚Ð¾Ñ€Ð¸Ð¸â€¦</div>'
+            ? '<div class="session-meta">Загрузка истории…</div>'
             : v.error
               ? `<div class="session-meta" style="color:#ff9cb3;">${escapeHtml(v.error)}</div>`
               : v.history.length === 0
-                ? '<div class="session-meta">Ð˜ÑÑ‚Ð¾Ñ€Ð¸Ñ Ð¿Ð¾ÐºÐ° Ð¿ÑƒÑÑ‚Ð°Ñ.</div>'
+                ? '<div class="session-meta">История пока пустая.</div>'
                 : v.history
                     .map(
                       (m) => `
@@ -1423,7 +1423,7 @@ function renderSessionViewer() {
                         <span class="history-role">${escapeHtml(m.role || 'unknown')}</span>
                         <span class="session-meta">${formatTime(m.timestamp)}</span>
                       </div>
-                      <pre class="history-text">${escapeHtml(m.text || 'â€”')}</pre>
+                      <pre class="history-text">${escapeHtml(m.text || '—')}</pre>
                     </article>`
                     )
                     .join('')}
@@ -1436,33 +1436,33 @@ function renderSessionViewer() {
 function renderMissionControl() {
   const m = state.missionControl;
   const connectedBadge = m.sourceConnected
-    ? '<span class="badge success"><span class="dot green"></span>live-Ð¸ÑÑ‚Ð¾Ñ‡Ð½Ð¸Ðº</span>'
+    ? '<span class="badge success"><span class="dot green"></span>live-источник</span>'
     : m.stale
-      ? '<span class="badge idle"><span class="dot yellow"></span>ÑƒÑÑ‚Ð°Ñ€ÐµÐ²ÑˆÐ¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ</span>'
-      : '<span class="badge failed"><span class="dot red"></span>Ð¸ÑÑ‚Ð¾Ñ‡Ð½Ð¸Ðº Ð½Ðµ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡Ñ‘Ð½</span>';
+      ? '<span class="badge idle"><span class="dot yellow"></span>устаревшие данные</span>'
+      : '<span class="badge failed"><span class="dot red"></span>источник не подключён</span>';
 
   return `
-    <h2 class="section-title">Ð¦ÐµÐ½Ñ‚Ñ€ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ</h2>
+    <h2 class="section-title">Центр управления</h2>
 
     <section class="panel">
       <h3 style="margin:0 0 12px; display:flex; justify-content:space-between; align-items:center;">
-        <span>ÐŸÑ€Ð¾Ñ„Ð¸Ð»ÑŒ Ð¼Ð¾Ð´ÐµÐ»Ð¸</span>
+        <span>Профиль модели</span>
         ${connectedBadge}
       </h3>
       <div class="info-grid">
-        <div class="info-cell"><small>ÐœÐ¾Ð´ÐµÐ»ÑŒ</small><strong>${escapeHtml(m.model || 'â€”')}</strong></div>
-        <div class="info-cell"><small>ÐŸÑ€Ð¾Ð²Ð°Ð¹Ð´ÐµÑ€</small><strong>${escapeHtml(m.provider || 'â€”')}</strong></div>
-        <div class="info-cell"><small>Ð¡Ñ‚Ð°Ñ‚ÑƒÑ</small><strong>${escapeHtml(m.status || 'â€”')}</strong></div>
-        <div class="info-cell"><small>ÐšÐ¾Ð½Ñ‚ÐµÐºÑÑ‚</small><strong>${escapeHtml(m.context || 'â€”')}</strong></div>
+        <div class="info-cell"><small>Модель</small><strong>${escapeHtml(m.model || '—')}</strong></div>
+        <div class="info-cell"><small>Провайдер</small><strong>${escapeHtml(m.provider || '—')}</strong></div>
+        <div class="info-cell"><small>Статус</small><strong>${escapeHtml(m.status || '—')}</strong></div>
+        <div class="info-cell"><small>Контекст</small><strong>${escapeHtml(m.context || '—')}</strong></div>
       </div>
-      <div class="session-meta" style="margin-top:10px;">ÐŸÐ¾ÑÐ»ÐµÐ´Ð½ÑÑ ÑÐ¸Ð½Ñ…Ñ€Ð¾Ð½Ð¸Ð·Ð°Ñ†Ð¸Ñ: ${escapeHtml(m.lastSyncAt || 'Ð½ÐµÑ‚ Ð´Ð°Ð½Ð½Ñ‹Ñ…')}</div>
+      <div class="session-meta" style="margin-top:10px;">Последняя синхронизация: ${escapeHtml(m.lastSyncAt || 'нет данных')}</div>
       ${m.error ? `<div class="session-meta" style="margin-top:6px;color:#ff9cb3;">API: ${escapeHtml(m.error)}</div>` : ''}
     </section>
 
-    <h3 style="margin:14px 0 10px;">ÐÐºÑ‚Ð¸Ð²Ð½Ñ‹Ðµ ÑÐµÑÑÐ¸Ð¸ (${m.sessions.length})</h3>
+    <h3 style="margin:14px 0 10px;">Активные сессии (${m.sessions.length})</h3>
     <section class="session-grid">
       ${m.sessions.length === 0
-        ? '<article class="session-card"><div class="session-meta">ÐÐµÑ‚ Ð´Ð°Ð½Ð½Ñ‹Ñ….</div></article>'
+        ? '<article class="session-card"><div class="session-meta">Нет данных.</div></article>'
         : m.sessions
             .map((s) => {
               const st = s.state === 'active' ? 'success' : s.state === 'idle' ? 'idle' : 'success';
@@ -1485,21 +1485,21 @@ function renderMissionControl() {
             .join('')}
     </section>
 
-    <h3 style="margin:14px 0 10px;">Ð¡Ð¾ÑÑ‚Ð¾ÑÐ½Ð¸Ðµ cron (${m.crons.length})</h3>
+    <h3 style="margin:14px 0 10px;">Состояние cron (${m.crons.length})</h3>
     <section class="panel table-wrap">
       <table class="mc-table">
         <thead>
           <tr>
-            <th>ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ</th>
-            <th>Ð Ð°ÑÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ</th>
-            <th>ÐŸÐ¾ÑÐ»ÐµÐ´Ð½Ð¸Ð¹ Ð·Ð°Ð¿ÑƒÑÐº</th>
-            <th>Ð¡Ñ‚Ð°Ñ‚ÑƒÑ</th>
-            <th>Ð¡Ð»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ Ð·Ð°Ð¿ÑƒÑÐº</th>
+            <th>Название</th>
+            <th>Расписание</th>
+            <th>Последний запуск</th>
+            <th>Статус</th>
+            <th>Следующий запуск</th>
           </tr>
         </thead>
         <tbody>
           ${m.crons.length === 0
-            ? '<tr><td colspan="5" class="session-meta">ÐÐµÑ‚ live-Ð´Ð°Ð½Ð½Ñ‹Ñ… cron.</td></tr>'
+            ? '<tr><td colspan="5" class="session-meta">Нет live-данных cron.</td></tr>'
             : m.crons
                 .map((c) => {
                   const failed = c.status === 'failed';
@@ -1508,16 +1508,16 @@ function renderMissionControl() {
                       <td>
                         <strong>${escapeHtml(c.name || 'cron')}</strong>
                         ${c.error ? `<div class="session-meta" style="margin-top:4px;">${escapeHtml(c.error)}</div>` : ''}
-                        ${c.id ? `<div style="margin-top:6px;"><button class="ghost-btn" data-open-automation-id="${c.id}">ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ð² Brain â†’ ÐÐ²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ð·Ð°Ñ†Ð¸Ñ</button></div>` : ''}
+                        ${c.id ? `<div style="margin-top:6px;"><button class="ghost-btn" data-open-automation-id="${c.id}">Открыть в Brain → Автоматизация</button></div>` : ''}
                       </td>
-                      <td>${escapeHtml(c.schedule || 'â€”')}</td>
-                      <td>${escapeHtml(c.lastRun || 'â€”')}</td>
+                      <td>${escapeHtml(c.schedule || '—')}</td>
+                      <td>${escapeHtml(c.lastRun || '—')}</td>
                       <td>
                         <span class="badge ${failed ? 'failed' : 'success'}">
                           <span class="dot ${failed ? 'red' : 'green'}"></span>${escapeHtml(c.status || 'unknown')}
                         </span>
                       </td>
-                      <td>${escapeHtml(c.nextRun || 'â€”')}</td>
+                      <td>${escapeHtml(c.nextRun || '—')}</td>
                     </tr>
                   `;
                 })
@@ -1533,40 +1533,40 @@ function renderMissionControl() {
 function renderOrgChart() {
   const agentColumns = [
     {
-      title: 'ÐÐ³ÐµÐ½Ñ‚ Ñ€Ð¾ÑÑ‚Ð°',
-      mission: 'ÐŸÑ€Ð¸Ð²Ð»ÐµÑ‡ÐµÐ½Ð¸Ðµ Ð¸ Ð°ÐºÑ‚Ð¸Ð²Ð°Ñ†Ð¸Ñ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹ 10â†’100â†’1000',
-      assistants: ['ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ ÐºÐ¾Ð½Ñ‚ÐµÐ½Ñ‚Ð°', 'ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ Ð³Ð¸Ð¿Ð¾Ñ‚ÐµÐ·', 'ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ Ð°Ð½Ð°Ð»Ð¸Ñ‚Ð¸ÐºÐ¸'],
+      title: 'Агент роста',
+      mission: 'Привлечение и активация пользователей 10→100→1000',
+      assistants: ['Ассистент контента', 'Ассистент гипотез', 'Ассистент аналитики'],
     },
     {
-      title: 'ÐÐ³ÐµÐ½Ñ‚ Ð¿Ñ€Ð¾Ð´ÑƒÐºÑ‚Ð°',
-      mission: 'ÐŸÑ€Ð¸Ð¾Ñ€Ð¸Ñ‚ÐµÐ·Ð°Ñ†Ð¸Ñ Ñ„Ð¸Ñ‡, UX Ð¸ Ñ†ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒ Ð´Ð»Ñ ÐºÐ»Ð¸ÐµÐ½Ñ‚Ð¾Ð²',
-      assistants: ['ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ UX', 'ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ Ð±ÑÐºÐ»Ð¾Ð³Ð°', 'ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ customer-feedback'],
+      title: 'Агент продукта',
+      mission: 'Приоритезация фич, UX и ценность для клиентов',
+      assistants: ['Ассистент UX', 'Ассистент бэклога', 'Ассистент customer-feedback'],
     },
     {
-      title: 'ÐÐ³ÐµÐ½Ñ‚ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¹',
-      mission: 'SOP, ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»ÑŒ Ð¸ÑÐ¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ Ð¸ ÑÑ‚Ð°Ð±Ð¸Ð»ÑŒÐ½Ð¾ÑÑ‚ÑŒ Ð¿Ñ€Ð¾Ñ†ÐµÑÑÐ¾Ð²',
-      assistants: ['ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ cron/Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ð·Ð°Ñ†Ð¸Ð¹', 'ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»Ñ Ð·Ð°Ð´Ð°Ñ‡', 'ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ Ð¾Ñ‚Ñ‡Ñ‘Ñ‚Ð½Ð¾ÑÑ‚Ð¸'],
+      title: 'Агент операций',
+      mission: 'SOP, контроль исполнения и стабильность процессов',
+      assistants: ['Ассистент cron/автоматизаций', 'Ассистент контроля задач', 'Ассистент отчётности'],
     },
     {
-      title: 'ÐÐ³ÐµÐ½Ñ‚ Ð»Ð°Ð±Ð¾Ñ€Ð°Ñ‚Ð¾Ñ€Ð¸Ð¸',
-      mission: 'Ð­ÐºÑÐ¿ÐµÑ€Ð¸Ð¼ÐµÐ½Ñ‚Ñ‹, staged-Ð¿Ñ€Ð¾Ñ‚Ð¾Ñ‚Ð¸Ð¿Ñ‹ Ð¸ Ð±ÐµÐ·Ð¾Ð¿Ð°ÑÐ½Ð¾Ðµ Ñ‚ÐµÑÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ',
-      assistants: ['ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ ÑÐºÑÐ¿ÐµÑ€Ð¸Ð¼ÐµÐ½Ñ‚Ð¾Ð²', 'ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ð°', 'ÐÑÑÐ¸ÑÑ‚ÐµÐ½Ñ‚ Ð´ÐµÐ¿Ð»Ð¾Ð¹-Ð³ÐµÐ¹Ñ‚Ð¾Ð²'],
+      title: 'Агент лаборатории',
+      mission: 'Эксперименты, staged-прототипы и безопасное тестирование',
+      assistants: ['Ассистент экспериментов', 'Ассистент качества', 'Ассистент деплой-гейтов'],
     },
   ];
 
   return `
-    <h2 class="section-title">ÐžÑ€Ð³Ð´Ð¸Ð°Ð³Ñ€Ð°Ð¼Ð¼Ð° (Ñ‡ÐµÑ€Ð½Ð¾Ð²Ð¸Ðº v0)</h2>
+    <h2 class="section-title">Оргдиаграмма (черновик v0)</h2>
     <section class="panel" style="margin-bottom:14px;">
       <div class="info-grid">
-        <div class="info-cell"><small>Ð£Ñ€Ð¾Ð²ÐµÐ½ÑŒ 1</small><strong>ÐÐ½Ð´Ñ€ÐµÐ¹ (Ñ‡ÐµÐ»Ð¾Ð²ÐµÐº / Ð²Ð»Ð°Ð´ÐµÐ»ÐµÑ†)</strong></div>
-        <div class="info-cell"><small>Ð£Ñ€Ð¾Ð²ÐµÐ½ÑŒ 2</small><strong>Ð¡Ñ‚Ð¸Ð² (Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¾Ð½Ð½Ñ‹Ð¹ Ð¿Ð°Ñ€Ñ‚Ð½Ñ‘Ñ€ / Chief of Execution)</strong></div>
-        <div class="info-cell"><small>Ð¡Ñ‚Ð°Ñ‚ÑƒÑ</small><strong>ÐšÐ°Ñ€ÐºÐ°Ñ, Ð±ÐµÐ· wiring</strong></div>
-        <div class="info-cell"><small>Ð¦ÐµÐ»ÑŒ</small><strong>ÐžÐ¿Ñ€ÐµÐ´ÐµÐ»Ð¸Ñ‚ÑŒ ÑÐ¾ÑÑ‚Ð°Ð² ÑÑƒÐ±Ð°Ð³ÐµÐ½Ñ‚Ð¾Ð² Ðº ÑÐ¿Ð¸Ð·Ð¾Ð´Ñƒ 3</strong></div>
+        <div class="info-cell"><small>Уровень 1</small><strong>Андрей (человек / владелец)</strong></div>
+        <div class="info-cell"><small>Уровень 2</small><strong>Стив (операционный партнёр / Chief of Execution)</strong></div>
+        <div class="info-cell"><small>Статус</small><strong>Каркас, без wiring</strong></div>
+        <div class="info-cell"><small>Цель</small><strong>Определить состав субагентов к эпизоду 3</strong></div>
       </div>
     </section>
 
     <section class="panel">
-      <h3 style="margin:0 0 10px;">Ð£Ñ€Ð¾Ð²ÐµÐ½ÑŒ 3 â€” Ð¿Ð¾Ð´Ñ‡Ð¸Ð½Ñ‘Ð½Ð½Ñ‹Ðµ Ð°Ð³ÐµÐ½Ñ‚Ñ‹ Ð¡Ñ‚Ð¸Ð²Ð°</h3>
+      <h3 style="margin:0 0 10px;">Уровень 3 — подчинённые агенты Стива</h3>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;">
         ${agentColumns
           .map(
@@ -1574,7 +1574,7 @@ function renderOrgChart() {
           <article class="card" style="text-align:left;">
             <h3 style="margin:0 0 6px;">${escapeHtml(col.title)}</h3>
             <p class="session-meta" style="margin:0 0 10px;">${escapeHtml(col.mission)}</p>
-            <div class="session-meta" style="margin-bottom:6px;"><strong>ÐŸÐ¾Ð´ Ð½Ð¸Ð¼ Ð¿Ð¾Ð¼Ð¾Ñ‰Ð½Ð¸ÐºÐ¸:</strong></div>
+            <div class="session-meta" style="margin-bottom:6px;"><strong>Под ним помощники:</strong></div>
             <ul style="margin:0;padding-left:18px;">
               ${col.assistants.map((a) => `<li style="margin:4px 0;">${escapeHtml(a)}</li>`).join('')}
             </ul>
@@ -1586,12 +1586,12 @@ function renderOrgChart() {
     </section>
 
     <section class="panel" style="margin-top:14px;">
-      <h3 style="margin:0 0 10px;">Ð§Ñ‚Ð¾ Ð¾Ð±ÑÑƒÐ´Ð¸Ñ‚ÑŒ Ð² ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ñ… ÑÐ¿Ð¸Ð·Ð¾Ð´Ð°Ñ…</h3>
+      <h3 style="margin:0 0 10px;">Что обсудить в следующих эпизодах</h3>
       <ul style="margin:0;padding-left:18px;">
-        <li>ÐšÐ°ÐºÐ¸Ðµ Ð¸Ð· ÑÑ‚Ð¸Ñ… Ð°Ð³ÐµÐ½Ñ‚Ð¾Ð² Ð·Ð°Ð¿ÑƒÑÐºÐ°ÐµÐ¼ Ð¿ÐµÑ€Ð²Ñ‹Ð¼Ð¸ (MVP-ÑÐ¾ÑÑ‚Ð°Ð²).</li>
-        <li>ÐšÐ°ÐºÐ¸Ðµ Ð¼ÐµÑ‚Ñ€Ð¸ÐºÐ¸ Ð¸ SLA Ð·Ð°ÐºÑ€ÐµÐ¿Ð»ÑÐµÐ¼ Ð·Ð° ÐºÐ°Ð¶Ð´Ñ‹Ð¼ Ð°Ð³ÐµÐ½Ñ‚Ð¾Ð¼.</li>
-        <li>ÐšÐ°ÐºÐ¸Ðµ Ð¾Ñ‚Ð´ÐµÐ»ÑŒÐ½Ñ‹Ðµ workspace Ð¸ Ð¿Ñ€Ð°Ð²Ð° Ð½ÑƒÐ¶Ð½Ñ‹ ÐºÐ°Ð¶Ð´Ð¾Ð¼Ñƒ Ð°Ð³ÐµÐ½Ñ‚Ñƒ.</li>
-        <li>ÐšÐ°Ðº Ð´ÐµÐ»ÐµÐ³Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¿Ñ€Ð¾Ñ…Ð¾Ð´Ð¸Ñ‚ Ñ‡ÐµÑ€ÐµÐ· Ð¡Ñ‚Ð¸Ð²Ð° Ð¸ Ð³Ð´Ðµ Ñ‡ÐµÐ»Ð¾Ð²ÐµÐº ÑƒÑ‚Ð²ÐµÑ€Ð¶Ð´Ð°ÐµÑ‚ Ñ€ÐµÑˆÐµÐ½Ð¸Ñ.</li>
+        <li>Какие из этих агентов запускаем первыми (MVP-состав).</li>
+        <li>Какие метрики и SLA закрепляем за каждым агентом.</li>
+        <li>Какие отдельные workspace и права нужны каждому агенту.</li>
+        <li>Как делегирование проходит через Стива и где человек утверждает решения.</li>
       </ul>
     </section>
   `;
@@ -1602,40 +1602,40 @@ function renderOrgChart() {
     {
       role: 'CTO',
       icon: 'ðŸ§ ',
-      title: 'ÐŸÑ€Ð¾Ð´ÑƒÐºÑ‚ Ð¸ Ñ‚ÐµÑ…Ð½Ð¾Ð»Ð¾Ð³Ð¸Ð¸',
-      mission: 'Ð¢ÐµÑ…ÑÑ‚Ñ€Ð°Ñ‚ÐµÐ³Ð¸Ñ, Ð°Ñ€Ñ…Ð¸Ñ‚ÐµÐºÑ‚ÑƒÑ€Ð°, UX Ð¸ ÐºÐ°Ñ‡ÐµÑÑ‚Ð²Ð¾ Ñ€ÐµÐ»Ð¸Ð·Ð¾Ð²',
+      title: 'Продукт и технологии',
+      mission: 'Техстратегия, архитектура, UX и качество релизов',
       color: 'blue',
       kpi: 'Release Stability 99.5%',
       teams: [
-        { name: 'Backend Ð¸ Ð¸Ð½Ñ‚ÐµÐ³Ñ€Ð°Ñ†Ð¸Ð¸', count: 2 },
-        { name: 'Frontend Ð¸ UX', count: 2 },
-        { name: 'QA Ð¸ Ð½Ð°Ð´Ñ‘Ð¶Ð½Ð¾ÑÑ‚ÑŒ', count: 1 },
+        { name: 'Backend и интеграции', count: 2 },
+        { name: 'Frontend и UX', count: 2 },
+        { name: 'QA и надёжность', count: 1 },
       ],
     },
     {
       role: 'CMO',
       icon: 'ðŸ“ˆ',
-      title: 'Ð Ð¾ÑÑ‚ Ð¸ Ð¼Ð°Ñ€ÐºÐµÑ‚Ð¸Ð½Ð³',
-      mission: 'Ð’Ð¾Ñ€Ð¾Ð½ÐºÐ° 10â†’100â†’1000, ÑÐºÑÐ¿ÐµÑ€Ð¸Ð¼ÐµÐ½Ñ‚Ñ‹ Ð¸ ÐºÐ¾Ð½Ñ‚ÐµÐ½Ñ‚-ÑÐ¸ÑÑ‚ÐµÐ¼Ð°',
+      title: 'Рост и маркетинг',
+      mission: 'Воронка 10→100→1000, эксперименты и контент-система',
       color: 'gold',
       kpi: 'Activation +18% WoW',
       teams: [
-        { name: 'ÐšÐ¾Ð½Ñ‚ÐµÐ½Ñ‚-ÑÐ¸ÑÑ‚ÐµÐ¼Ð°', count: 2 },
-        { name: 'Ð­ÐºÑÐ¿ÐµÑ€Ð¸Ð¼ÐµÐ½Ñ‚Ñ‹ Ð¿Ñ€Ð¸Ð²Ð»ÐµÑ‡ÐµÐ½Ð¸Ñ', count: 2 },
-        { name: 'ÐÐ½Ð°Ð»Ð¸Ñ‚Ð¸ÐºÐ° Ð¸ Ð¸Ð½ÑÐ°Ð¹Ñ‚Ñ‹', count: 1 },
+        { name: 'Контент-система', count: 2 },
+        { name: 'Эксперименты привлечения', count: 2 },
+        { name: 'Аналитика и инсайты', count: 1 },
       ],
     },
     {
       role: 'COO',
       icon: 'âš™ï¸',
-      title: 'ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ð¸ delivery',
-      mission: 'SOP, ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»ÑŒ Ð¸ÑÐ¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ, SLA Ð¸ Ð¿Ñ€Ð¾Ð·Ñ€Ð°Ñ‡Ð½Ð¾ÑÑ‚ÑŒ delivery',
+      title: 'Операции и delivery',
+      mission: 'SOP, контроль исполнения, SLA и прозрачность delivery',
       color: 'teal',
       kpi: 'SLA On-time 96%',
       teams: [
-        { name: 'ÐšÐ¾Ð½Ñ‚Ñ€Ð¾Ð»ÑŒ Ð¸ÑÐ¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ', count: 2 },
+        { name: 'Контроль исполнения', count: 2 },
         { name: 'Automation Ops', count: 2 },
-        { name: 'ÐšÐ»Ð¸ÐµÐ½Ñ‚ÑÐºÐ¸Ð¹ delivery', count: 1 },
+        { name: 'Клиентский delivery', count: 1 },
       ],
     },
   ];
@@ -1647,27 +1647,27 @@ function renderOrgChart() {
     <section class="team-v2-shell">
       <header class="team-v2-head">
         <div>
-          <h2 class="section-title team-v2-title">ÐšÐ¾Ð¼Ð°Ð½Ð´Ð° v2</h2>
-          <p class="team-v2-sub">ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¾Ð½Ð½Ð°Ñ ÑÑ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ð° Avanta OS Â· Ð²Ð¸Ð·ÑƒÐ°Ð» Ð´Ð»Ñ ÐµÐ¶ÐµÐ´Ð½ÐµÐ²Ð½Ð¾Ð³Ð¾ ÑƒÐ¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ñ</p>
+          <h2 class="section-title team-v2-title">Команда v2</h2>
+          <p class="team-v2-sub">Операционная структура Avanta OS · визуал для ежедневного управления</p>
         </div>
         <div class="team-v2-chip">Live Org</div>
       </header>
 
       <div class="team-v2-metrics">
-        <article class="team-v2-metric"><span>${totalAgents}</span><small>Ð’ÑÐµÐ³Ð¾ Ð°Ð³ÐµÐ½Ñ‚Ð¾Ð²</small></article>
-        <article class="team-v2-metric"><span>${leads.length + 1}</span><small>Ð ÑƒÐºÐ¾Ð²Ð¾Ð´ÑÑ‰Ð¸Ð¹ ÐºÐ¾Ð½Ñ‚ÑƒÑ€</small></article>
-        <article class="team-v2-metric"><span>${totalTeams}</span><small>ÐšÐ¾Ð¼Ð°Ð½Ð´</small></article>
-        <article class="team-v2-metric"><span>3</span><small>ÐÐºÑ‚Ð¸Ð²Ð½Ñ‹Ñ… Ñ‚Ñ€ÐµÐºÐ°</small></article>
+        <article class="team-v2-metric"><span>${totalAgents}</span><small>Всего агентов</small></article>
+        <article class="team-v2-metric"><span>${leads.length + 1}</span><small>Руководящий контур</small></article>
+        <article class="team-v2-metric"><span>${totalTeams}</span><small>Команд</small></article>
+        <article class="team-v2-metric"><span>3</span><small>Активных трека</small></article>
       </div>
 
       <section class="team-v2-core">
         <article class="team-v2-node owner">
           <div class="team-v2-person-row">
-            <div class="team-avatar team-avatar-owner">Ð</div>
+            <div class="team-avatar team-avatar-owner">А</div>
             <div>
               <div class="team-v2-role">Owner</div>
-              <h3>ÐÐ½Ð´Ñ€ÐµÐ¹</h3>
-              <p>Ð¡Ñ‚Ñ€Ð°Ñ‚ÐµÐ³Ð¸Ñ, Ñ„Ð¾ÐºÑƒÑ Ð¸ Ñ„Ð¸Ð½Ð°Ð»ÑŒÐ½Ð¾Ðµ Ñ€ÐµÑˆÐµÐ½Ð¸Ðµ</p>
+              <h3>Андрей</h3>
+              <p>Стратегия, фокус и финальное решение</p>
             </div>
           </div>
         </article>
@@ -1679,8 +1679,8 @@ function renderOrgChart() {
             <div class="team-avatar team-avatar-chief">ðŸ§­</div>
             <div>
               <div class="team-v2-role">Chief of Execution</div>
-              <h3>Ð¡Ñ‚Ð¸Ð²</h3>
-              <p>ÐžÑ€ÐºÐµÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ Ð·Ð°Ð´Ð°Ñ‡, Ð¿Ñ€Ð¸Ð¾Ñ€Ð¸Ñ‚ÐµÑ‚Ñ‹, ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»ÑŒ Ð¸ÑÐ¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ</p>
+              <h3>Стив</h3>
+              <p>Оркестрация задач, приоритеты, контроль исполнения</p>
               <div class="team-v2-tags">
                 <span>Ops Command Center</span>
                 <span>Execution OS</span>
@@ -1694,8 +1694,8 @@ function renderOrgChart() {
         ${leads
           .map(
             (lead) => {
-              const leadName = lead.role === 'CTO' ? 'Ð˜Ð»ÑŒÑ' : lead.role === 'CMO' ? 'ÐœÐ°Ñ€Ð¸Ñ' : 'ÐÐ»ÐµÐºÑÐµÐ¹';
-              const leadAvatar = lead.role === 'CTO' ? 'Ð˜' : lead.role === 'CMO' ? 'Ðœ' : 'Ð';
+              const leadName = lead.role === 'CTO' ? 'Илья' : lead.role === 'CMO' ? 'Мария' : 'Алексей';
+              const leadAvatar = lead.role === 'CTO' ? 'И' : lead.role === 'CMO' ? 'М' : 'А';
               return `
           <article class="team-v2-lead tone-${escapeHtml(lead.color)}">
             <div class="team-v2-lead-top">
@@ -1719,7 +1719,7 @@ function renderOrgChart() {
                   (team) => `
                 <div class="team-v2-team-item">
                   <span>${escapeHtml(team.name)}</span>
-                  <small>${escapeHtml(team.count)} Ð°Ð³ÐµÐ½Ñ‚Ð°</small>
+                  <small>${escapeHtml(team.count)} агента</small>
                 </div>`
                 )
                 .join('')}
@@ -1739,47 +1739,47 @@ function renderLabDashboard() {
   return `
     <div class="lab-shell">
       <section class="lab-title-block">
-        <h2>Ð›Ð°Ð±Ð¾Ñ€Ð°Ñ‚Ð¾Ñ€Ð¸Ñ</h2>
-        <p>Ð­ÐºÑÐ¿ÐµÑ€Ð¸Ð¼ÐµÐ½Ñ‚Ñ‹, Ð¿Ñ€Ð¾Ñ‚Ð¾Ñ‚Ð¸Ð¿Ñ‹ Ð¸ Ð½Ð¾Ñ‡Ð½Ñ‹Ðµ ÑÐ±Ð¾Ñ€ÐºÐ¸</p>
-        <span class="session-meta">Ð¥Ñ€Ð°Ð½Ð¸Ð»Ð¸Ñ‰Ðµ: ${escapeHtml(l.storageMode || 'json')}</span>
+        <h2>Лаборатория</h2>
+        <p>Эксперименты, прототипы и ночные сборки</p>
+        <span class="session-meta">Хранилище: ${escapeHtml(l.storageMode || 'json')}</span>
       </section>
 
-      ${l.loading ? '<div class="session-meta" style="margin-top:8px;">Ð—Ð°Ð³Ñ€ÑƒÐ·ÐºÐ°â€¦</div>' : ''}
+      ${l.loading ? '<div class="session-meta" style="margin-top:8px;">Загрузка…</div>' : ''}
       ${l.error ? `<div class="session-meta" style="margin-top:8px;color:#ff9cb3;">${escapeHtml(l.error)}</div>` : ''}
 
       <div class="lab-hero-grid">
         <section class="lab-hero-card">
-          <h3>ÐŸÑ€Ð¾Ñ‚Ð¾Ñ‚Ð¸Ð¿Ñ‹</h3>
+          <h3>Прототипы</h3>
           <div class="lab-list">
-            ${l.prototypes.length === 0 ? '<div class="session-meta">ÐŸÐ¾ÐºÐ° Ð½ÐµÑ‚ Ð¿Ñ€Ð¾Ñ‚Ð¾Ñ‚Ð¸Ð¿Ð¾Ð²</div>' : l.prototypes.map((p, i) => `<button class="lab-link" data-open-lab-preview="prototype:${i}">${escapeHtml(p.name || 'Ð¿Ñ€Ð¾Ñ‚Ð¾Ñ‚Ð¸Ð¿')}<span>${escapeHtml(p.url || 'â€”')}</span></button>`).join('')}
+            ${l.prototypes.length === 0 ? '<div class="session-meta">Пока нет прототипов</div>' : l.prototypes.map((p, i) => `<button class="lab-link" data-open-lab-preview="prototype:${i}">${escapeHtml(p.name || 'прототип')}<span>${escapeHtml(p.url || '—')}</span></button>`).join('')}
           </div>
         </section>
 
         <section class="lab-hero-card">
-          <h3>Ð­ÐºÑÐ¿ÐµÑ€Ð¸Ð¼ÐµÐ½Ñ‚Ñ‹</h3>
+          <h3>Эксперименты</h3>
           <div class="lab-list">
-            ${l.experiments.length === 0 ? '<div class="session-meta">ÐŸÐ¾ÐºÐ° Ð½ÐµÑ‚ ÑÐºÑÐ¿ÐµÑ€Ð¸Ð¼ÐµÐ½Ñ‚Ð¾Ð²</div>' : l.experiments.map((e, i) => `<button class="lab-link" data-open-lab-preview="experiment:${i}">${escapeHtml(e.name || 'ÑÐºÑÐ¿ÐµÑ€Ð¸Ð¼ÐµÐ½Ñ‚')}<span>${escapeHtml(e.status || 'planned')}</span></button>`).join('')}
+            ${l.experiments.length === 0 ? '<div class="session-meta">Пока нет экспериментов</div>' : l.experiments.map((e, i) => `<button class="lab-link" data-open-lab-preview="experiment:${i}">${escapeHtml(e.name || 'эксперимент')}<span>${escapeHtml(e.status || 'planned')}</span></button>`).join('')}
           </div>
         </section>
       </div>
 
       <section class="lab-hero-card" style="margin-top:14px;">
-        <h3>ÐšÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚Ñ‹ Ñ„Ð¸Ñ‡ (${l.featureCandidates.length})</h3>
+        <h3>Кандидаты фич (${l.featureCandidates.length})</h3>
         <div class="lab-list">
           ${l.featureCandidates.length === 0
-            ? '<div class="session-meta">ÐŸÐ¾ÐºÐ° Ð½ÐµÑ‚ ÐºÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚Ð¾Ð²</div>'
+            ? '<div class="session-meta">Пока нет кандидатов</div>'
             : l.featureCandidates
                 .map(
                   (c) => `<div class="lab-link" style="cursor:default;">
-                  <strong>${escapeHtml(c.title || c.name || 'ÐºÐ°Ð½Ð´Ð¸Ð´Ð°Ñ‚')}</strong>
-                  <span>${escapeHtml(c.status || 'ready_for_review')} Â· Ð¼Ð¾Ð´ÑƒÐ»ÑŒ: ${escapeHtml(c.auditedModule || 'lab')} Â· score: ${escapeHtml(c.priorityScore ?? 'n/a')}</span>
-                  <span>Ð²Ð»Ð¸ÑÐ½Ð¸Ðµ: ${escapeHtml(c.impact ?? 'n/a')} Â· fit: ${escapeHtml(c.strategicFit ?? 'n/a')} Â· effort: ${escapeHtml(c.effort ?? 'n/a')} Â· Ñ€Ð¸ÑÐº: ${escapeHtml(c.risk ?? 'n/a')}</span>
-                  <span>preview: ${escapeHtml(c.previewUrl || 'Ð½Ðµ Ð¿Ð¾Ð´Ð³Ð¾Ñ‚Ð¾Ð²Ð»ÐµÐ½Ð¾')}</span>
+                  <strong>${escapeHtml(c.title || c.name || 'кандидат')}</strong>
+                  <span>${escapeHtml(c.status || 'ready_for_review')} · модуль: ${escapeHtml(c.auditedModule || 'lab')} · score: ${escapeHtml(c.priorityScore ?? 'n/a')}</span>
+                  <span>влияние: ${escapeHtml(c.impact ?? 'n/a')} · fit: ${escapeHtml(c.strategicFit ?? 'n/a')} · effort: ${escapeHtml(c.effort ?? 'n/a')} · риск: ${escapeHtml(c.risk ?? 'n/a')}</span>
+                  <span>preview: ${escapeHtml(c.previewUrl || 'не подготовлено')}</span>
                   <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
-                    ${c.previewUrl ? `<button class="ghost-btn" data-open-external-url="${c.previewUrl}">ÐžÑ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ð¿Ñ€ÐµÐ²ÑŒÑŽ</button>` : ''}
-                    <button class="ghost-btn" data-lab-decision="approve" data-candidate-id="${c.id}">ÐžÐ´Ð¾Ð±Ñ€Ð¸Ñ‚ÑŒ Ð² Ð¿Ñ€Ð¾Ð´</button>
-                    <button class="ghost-btn" data-lab-decision="iterate" data-candidate-id="${c.id}">ÐÐ° Ð´Ð¾Ñ€Ð°Ð±Ð¾Ñ‚ÐºÑƒ</button>
-                    <button class="ghost-btn" data-lab-decision="reject" data-candidate-id="${c.id}">ÐžÑ‚ÐºÐ»Ð¾Ð½Ð¸Ñ‚ÑŒ</button>
+                    ${c.previewUrl ? `<button class="ghost-btn" data-open-external-url="${c.previewUrl}">Открыть превью</button>` : ''}
+                    <button class="ghost-btn" data-lab-decision="approve" data-candidate-id="${c.id}">Одобрить в прод</button>
+                    <button class="ghost-btn" data-lab-decision="iterate" data-candidate-id="${c.id}">На доработку</button>
+                    <button class="ghost-btn" data-lab-decision="reject" data-candidate-id="${c.id}">Отклонить</button>
                   </div>
                 </div>`
                 )
@@ -1799,13 +1799,13 @@ function renderLabPreview() {
   return `
     <div class="lab-preview-backdrop" id="labPreviewBackdrop">
       <div class="lab-preview-modal" role="dialog" aria-modal="true">
-        <button class="session-modal-close" id="labPreviewClose" title="Ð—Ð°ÐºÑ€Ñ‹Ñ‚ÑŒ">âœ•</button>
+        <button class="session-modal-close" id="labPreviewClose" title="Закрыть">✕</button>
         <div class="daily-viewer-head" style="margin-bottom:12px;padding-right:26px;">
-          <strong>${escapeHtml(p.title || 'ÐŸÑ€ÐµÐ²ÑŒÑŽ')}</strong>
+          <strong>${escapeHtml(p.title || 'Превью')}</strong>
         </div>
         ${p.type === 'url'
           ? `<iframe class="lab-frame" src="${p.url}" title="${escapeHtml(p.title || 'lab preview')}"></iframe>`
-          : `<div class="daily-markdown"><pre class="history-text" style="font-size:13px;">${escapeHtml(p.content || 'ÐÐµÑ‚ Ð´Ð°Ð½Ð½Ñ‹Ñ…')}</pre></div>`}
+          : `<div class="daily-markdown"><pre class="history-text" style="font-size:13px;">${escapeHtml(p.content || 'Нет данных')}</pre></div>`}
       </div>
     </div>
   `;
@@ -1833,7 +1833,7 @@ function openLabPreview(ref) {
   const hasUrl = !!item.url;
   state.lab.preview = {
     open: true,
-    title: item.name || 'ÐŸÑ€ÐµÐ²ÑŒÑŽ',
+    title: item.name || 'Превью',
     type: hasUrl ? 'url' : 'text',
     url: item.url || '',
     content: item.notes || JSON.stringify(item, null, 2),
@@ -2032,7 +2032,7 @@ function attachTabHandlers() {
     el.addEventListener('click', () => {
       const url = el.getAttribute('data-open-external-url');
       if (!url) return;
-      state.lab.preview = { open: true, title: 'ÐŸÑ€ÐµÐ²ÑŒÑŽ Ð¿ÐµÑÐ¾Ñ‡Ð½Ð¸Ñ†Ñ‹', type: 'url', url, content: '' };
+      state.lab.preview = { open: true, title: 'Превью песочницы', type: 'url', url, content: '' };
       render();
     });
   });
@@ -2089,7 +2089,7 @@ function attachTabHandlers() {
         try {
           await savePmTaskMeta(state.pmTaskModal.task.id, { priority: btn.getAttribute('data-pm-priority-option') });
         } catch (err) {
-          state.opsBoard.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ñ Ð¿Ñ€Ð¸Ð¾Ñ€Ð¸Ñ‚ÐµÑ‚Ð°';
+          state.opsBoard.error = err?.message || 'Ошибка обновления приоритета';
           render();
         }
       });
@@ -2107,7 +2107,7 @@ function attachTabHandlers() {
       try {
         await savePmTaskMeta(state.pmTaskModal.task.id, { tags: merged });
       } catch (err) {
-        state.opsBoard.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ñ‚ÐµÐ³Ð°';
+        state.opsBoard.error = err?.message || 'Ошибка добавления тега';
         render();
       }
     };
@@ -2131,7 +2131,7 @@ function attachTabHandlers() {
       try {
         await savePmTaskMeta(state.pmTaskModal.task.id, { tags: next });
       } catch (err) {
-        state.opsBoard.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ Ñ‚ÐµÐ³Ð°';
+        state.opsBoard.error = err?.message || 'Ошибка удаления тега';
         render();
       }
     });
@@ -2163,7 +2163,7 @@ function attachTabHandlers() {
       const taskId = el.getAttribute('data-pm-task-id');
       const fromStage = el.getAttribute('data-pm-stage');
       if (!taskId || !e.dataTransfer) return;
-      // text/plain Ð½ÑƒÐ¶ÐµÐ½ Ð´Ð»Ñ ÑÑ‚Ð°Ð±Ð¸Ð»ÑŒÐ½Ð¾Ð³Ð¾ drag&drop Ð² Ñ‡Ð°ÑÑ‚Ð¸ Ð±Ñ€Ð°ÑƒÐ·ÐµÑ€Ð¾Ð²
+      // text/plain нужен для стабильного drag&drop в части браузеров
       e.dataTransfer.setData('text/plain', `pm-task:${taskId}`);
       e.dataTransfer.setData('text/pm-task-id', taskId);
       e.dataTransfer.setData('text/pm-from-stage', fromStage || '');
@@ -2224,10 +2224,10 @@ async function decideFeatureCandidate(id, decision) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, decision }),
     });
-    if (!response.ok) throw new Error('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ ÑÐ¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ Ñ€ÐµÑˆÐµÐ½Ð¸Ðµ');
+    if (!response.ok) throw new Error('Не удалось сохранить решение');
     await loadLabData({ silent: true });
   } catch (err) {
-    state.lab.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ Ñ€ÐµÑˆÐµÐ½Ð¸Ñ';
+    state.lab.error = err?.message || 'Ошибка сохранения решения';
     render();
   }
 }
@@ -2239,10 +2239,10 @@ async function moveOpsTaskStage(taskId, toStage) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ taskId, toStage }),
     });
-    if (!response.ok) throw new Error('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¿ÐµÑ€ÐµÐ¼ÐµÑÑ‚Ð¸Ñ‚ÑŒ Ð·Ð°Ð´Ð°Ñ‡Ñƒ');
+    if (!response.ok) throw new Error('Не удалось переместить задачу');
     await loadOpsBoard();
   } catch (err) {
-    state.opsBoard.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿ÐµÑ€ÐµÐ¼ÐµÑ‰ÐµÐ½Ð¸Ñ Ð·Ð°Ð´Ð°Ñ‡Ð¸';
+    state.opsBoard.error = err?.message || 'Ошибка перемещения задачи';
     render();
   }
 }
@@ -2253,7 +2253,7 @@ async function loadOpsBoard() {
   render();
   try {
     const response = await fetch('/api/ops/board', { cache: 'no-store' });
-    if (!response.ok) throw new Error('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ PM Board');
+    if (!response.ok) throw new Error('Не удалось загрузить PM Board');
     const payload = await response.json();
     state.opsBoard = {
       loading: false,
@@ -2264,7 +2264,7 @@ async function loadOpsBoard() {
     };
   } catch (err) {
     state.opsBoard.loading = false;
-    state.opsBoard.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° PM Board';
+    state.opsBoard.error = err?.message || 'Ошибка PM Board';
   }
   render();
 }
@@ -2276,7 +2276,7 @@ async function loadOpsDocs(file) {
   try {
     const suffix = file ? `?file=${encodeURIComponent(file)}` : '';
     const response = await fetch(`/api/ops/docs${suffix}`, { cache: 'no-store' });
-    if (!response.ok) throw new Error('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ docs');
+    if (!response.ok) throw new Error('Не удалось загрузить docs');
     const payload = await response.json();
     state.opsDocs = {
       ...state.opsDocs,
@@ -2288,7 +2288,7 @@ async function loadOpsDocs(file) {
     };
   } catch (err) {
     state.opsDocs.loading = false;
-    state.opsDocs.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° docs';
+    state.opsDocs.error = err?.message || 'Ошибка docs';
   }
   render();
 }
@@ -2302,7 +2302,7 @@ async function loadOpsWorkspaces(file) {
     const params = new URLSearchParams({ workspace: ws });
     if (file) params.set('file', file);
     const response = await fetch(`/api/ops/workspaces?${params.toString()}`, { cache: 'no-store' });
-    if (!response.ok) throw new Error('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ workspaces');
+    if (!response.ok) throw new Error('Не удалось загрузить workspaces');
     const payload = await response.json();
     state.opsWorkspaces = {
       ...state.opsWorkspaces,
@@ -2315,7 +2315,7 @@ async function loadOpsWorkspaces(file) {
     };
   } catch (err) {
     state.opsWorkspaces.loading = false;
-    state.opsWorkspaces.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° workspaces';
+    state.opsWorkspaces.error = err?.message || 'Ошибка workspaces';
   }
   render();
 }
@@ -2330,7 +2330,7 @@ async function loadLabData(options = {}) {
 
   try {
     const response = await fetch('/api/lab', { cache: 'no-store' });
-    if (!response.ok) throw new Error('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ð»Ð°Ð±Ð¾Ñ€Ð°Ñ‚Ð¾Ñ€Ð½Ñ‹Ð¹ Ð¼Ð¾Ð´ÑƒÐ»ÑŒ');
+    if (!response.ok) throw new Error('Не удалось загрузить лабораторный модуль');
     const payload = await response.json();
 
     state.lab = {
@@ -2348,7 +2348,7 @@ async function loadLabData(options = {}) {
     };
   } catch (err) {
     state.lab.loading = false;
-    state.lab.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ¸ Ð»Ð°Ð±Ð¾Ñ€Ð°Ñ‚Ð¾Ñ€Ð¸Ð¸';
+    state.lab.error = err?.message || 'Ошибка загрузки лаборатории';
   }
 
   render();
@@ -2364,7 +2364,7 @@ async function loadAutomationData(options = {}) {
 
   try {
     const response = await fetch('/api/automation', { cache: 'no-store' });
-    if (!response.ok) throw new Error('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ð·Ð°Ñ†Ð¸Ð¸');
+    if (!response.ok) throw new Error('Не удалось загрузить автоматизации');
     const payload = await response.json();
     const jobs = Array.isArray(payload.jobs) ? payload.jobs : [];
     const selectedExists = jobs.some((x) => x.id === state.automation.selectedJobId);
@@ -2378,7 +2378,7 @@ async function loadAutomationData(options = {}) {
     };
   } catch (err) {
     state.automation.loading = false;
-    state.automation.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ¸ Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ð·Ð°Ñ†Ð¸Ð¹';
+    state.automation.error = err?.message || 'Ошибка загрузки автоматизаций';
   }
 
   render();
@@ -2394,7 +2394,7 @@ async function loadSkillsDirectoryData(options = {}) {
 
   try {
     const response = await fetch('/api/brain/directory', { cache: 'no-store' });
-    if (!response.ok) throw new Error('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³ skills/plugins');
+    if (!response.ok) throw new Error('Не удалось загрузить каталог skills/plugins');
     const payload = await response.json();
 
     state.skillsDirectory = {
@@ -2405,7 +2405,7 @@ async function loadSkillsDirectoryData(options = {}) {
     };
   } catch (err) {
     state.skillsDirectory.loading = false;
-    state.skillsDirectory.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ¸ ÐºÐ°Ñ‚Ð°Ð»Ð¾Ð³Ð°';
+    state.skillsDirectory.error = err?.message || 'Ошибка загрузки каталога';
   }
 
   render();
@@ -2419,7 +2419,7 @@ async function loadDailySummaries(file) {
   try {
     const suffix = file ? `?file=${encodeURIComponent(file)}` : '';
     const response = await fetch(`/api/daily-summaries${suffix}`, { cache: 'no-store' });
-    if (!response.ok) throw new Error('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð·Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ ÐµÐ¶ÐµÐ´Ð½ÐµÐ²Ð½Ñ‹Ðµ ÑÐ²Ð¾Ð´ÐºÐ¸');
+    if (!response.ok) throw new Error('Не удалось загрузить ежедневные сводки');
     const payload = await response.json();
 
     state.dailySummaries = {
@@ -2431,7 +2431,7 @@ async function loadDailySummaries(file) {
     };
   } catch (err) {
     state.dailySummaries.loading = false;
-    state.dailySummaries.error = err?.message || 'ÐžÑˆÐ¸Ð±ÐºÐ° Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ¸ ÑÐ²Ð¾Ð´Ð¾Ðº';
+    state.dailySummaries.error = err?.message || 'Ошибка загрузки сводок';
   }
 
   render();
@@ -2514,5 +2514,6 @@ document.addEventListener('visibilitychange', () => {
   }
   refreshSessionViewerRealtime();
 });
+
 
 
