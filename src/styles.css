@@ -994,19 +994,26 @@ body { overflow: hidden; background: var(--bg-0); }
 }
 .team-bucket summary {
   list-style: none;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 14px;
+  column-gap: 10px;
   align-items: center;
   cursor: pointer;
   font-weight: 600;
 }
 .team-bucket summary::-webkit-details-marker { display: none; }
-.team-bucket summary small { color: var(--muted); font-weight: 500; }
+.team-bucket summary small {
+  color: var(--muted);
+  font-weight: 500;
+  text-align: right;
+  min-width: 78px;
+  font-variant-numeric: tabular-nums;
+}
 .team-bucket summary::after {
   content: '▸';
-  margin-left: 8px;
   color: var(--muted);
   font-size: 12px;
+  justify-self: end;
   transition: transform .18s ease;
 }
 .team-bucket[open] summary::after {

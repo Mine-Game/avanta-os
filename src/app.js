@@ -1682,6 +1682,13 @@ function renderOrgChart() {
 
   const totalTeams = leads.reduce((sum, lead) => sum + lead.buckets.length, 0);
   const totalAgents = 2 + leads.length + leads.reduce((sum, lead) => sum + lead.buckets.reduce((n, b) => n + b.agents.length, 0), 0);
+  const formatAgentsCount = (n) => {
+    const m10 = n % 10;
+    const m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return `${n} агент`;
+    if (m10 >= 2 && m10 <= 4 && !(m100 >= 12 && m100 <= 14)) return `${n} агента`;
+    return `${n} агентов`;
+  };
 
   return `
     <section class="team-v2-shell">
@@ -1759,7 +1766,7 @@ function renderOrgChart() {
                 <details class="team-bucket">
                   <summary>
                     <span>${escapeHtml(bucket.name)}</span>
-                    <small>${escapeHtml(bucket.agents.length)} агента</small>
+                    <small>${escapeHtml(formatAgentsCount(bucket.agents.length))}</small>
                   </summary>
                   <p class="team-bucket-summary">${escapeHtml(bucket.summary || '')}</p>
                   <div class="team-bucket-agents">
