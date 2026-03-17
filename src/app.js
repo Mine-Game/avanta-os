@@ -1620,7 +1620,7 @@ function renderOrgChart() {
       kpi: 'SLA вовремя 96%',
       teams: [
         { name: 'Контроль исполнения', count: 2 },
-        { name: 'Automation Ops', count: 2 },
+        { name: 'Автоматизация операций', count: 2 },
         { name: 'Клиентское исполнение', count: 1 }
       ]
     }
@@ -1664,12 +1664,12 @@ function renderOrgChart() {
           <div class="team-v2-person-row">
             <div class="team-avatar team-avatar-chief">🧭</div>
             <div>
-              <div class="team-v2-role">Руководитель исполнения</div>
+              <div class="team-v2-role">Директор исполнения</div>
               <h3>Стив</h3>
               <p>Оркестрация задач, приоритеты, контроль исполнения</p>
               <div class="team-v2-tags">
                 <span>Операционный центр</span>
-                <span>Execution OS</span>
+                <span>ОС исполнения</span>
               </div>
             </div>
           </div>
@@ -2517,6 +2517,8 @@ document.addEventListener('visibilitychange', () => {
   }
   refreshSessionViewerRealtime();
 });
+
+
 
 
 
