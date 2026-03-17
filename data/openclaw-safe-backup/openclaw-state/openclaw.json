@@ -1,4 +1,8 @@
 ﻿{
+  "meta": {
+    "lastTouchedVersion": "2026.2.26",
+    "lastTouchedAt": "2026-03-17T08:15:15.457Z"
+  },
   "wizard": {
     "lastRunAt": "2026-03-08T22:11:56.711Z",
     "lastRunVersion": "2026.2.26",
@@ -22,8 +26,60 @@
         "openai-codex/gpt-5.3-codex": {}
       },
       "workspace": "C:\\Users\\vboxuser\\.openclaw\\workspace-finfak"
-    }
+    },
+    "list": [
+      {
+        "id": "main",
+        "default": true,
+        "workspace": "C:\\Users\\vboxuser\\.openclaw\\workspace-finfak",
+        "agentDir": "C:\\Users\\vboxuser\\.openclaw-finfak\\agents\\main\\agent"
+      },
+      {
+        "id": "maria",
+        "name": "ÐœÐ°Ñ€Ð¸Ñ",
+        "workspace": "C:\\Users\\vboxuser\\.openclaw-finfak\\workspace-maria",
+        "agentDir": "C:\\Users\\vboxuser\\.openclaw-finfak\\agents\\maria\\agent",
+        "sandbox": {
+          "mode": "all",
+          "scope": "agent"
+        },
+        "tools": {
+          "allow": [
+            "read",
+            "write",
+            "edit",
+            "web_search",
+            "web_fetch",
+            "memory_search",
+            "memory_get",
+            "message",
+            "session_status"
+          ],
+          "deny": [
+            "exec",
+            "process",
+            "browser",
+            "canvas",
+            "nodes",
+            "sessions_spawn",
+            "sessions_send",
+            "sessions_list",
+            "sessions_history",
+            "subagents"
+          ]
+        }
+      }
+    ]
   },
+  "bindings": [
+    {
+      "agentId": "maria",
+      "match": {
+        "channel": "telegram",
+        "accountId": "maria"
+      }
+    }
+  ],
   "commands": {
     "native": "auto",
     "nativeSkills": "auto",
@@ -49,6 +105,22 @@
       }
     }
   },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "groupPolicy": "allowlist",
+      "accounts": {
+        "maria": {
+          "dmPolicy": "pairing",
+          "botToken": "8152009834:AAGy6XXVHNs8PEol9_mISqRLT-tE62RxYmk",
+          "groupPolicy": "allowlist",
+          "streaming": "off"
+        }
+      },
+      "streaming": "off"
+    }
+  },
   "gateway": {
     "port": 18789,
     "mode": "local",
@@ -71,10 +143,5 @@
         "reminders.add"
       ]
     }
-  },
-  "meta": {
-    "lastTouchedVersion": "2026.2.26",
-    "lastTouchedAt": "2026-03-08T22:11:56.716Z"
   }
 }
-

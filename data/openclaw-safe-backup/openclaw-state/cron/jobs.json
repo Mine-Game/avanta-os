@@ -7,7 +7,7 @@
       "description": "02:00 — безопасный бэкап в приватный git-репозиторий",
       "enabled": true,
       "createdAtMs": 1773269128978,
-      "updatedAtMs": 1773609442905,
+      "updatedAtMs": 1773694973003,
       "schedule": {
         "kind": "cron",
         "expr": "0 2 * * *",
@@ -24,15 +24,15 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773676800000,
-        "lastRunAtMs": 1773608589142,
+        "nextRunAtMs": 1773763200000,
+        "lastRunAtMs": 1773694931728,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 44205,
+        "lastDurationMs": 41275,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1773694931721
+        "runningAtMs": 1773782416999
       }
     },
     {
@@ -41,7 +41,7 @@
       "description": "Аудит одного модуля Avanta и реализация ровно одной staged-фичи",
       "enabled": true,
       "createdAtMs": 1773269140230,
-      "updatedAtMs": 1773608766370,
+      "updatedAtMs": 1773695173912,
       "schedule": {
         "kind": "cron",
         "expr": "30 2 * * *",
@@ -58,15 +58,15 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773678600000,
-        "lastRunAtMs": 1773608633347,
+        "nextRunAtMs": 1773765000000,
+        "lastRunAtMs": 1773694973003,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 133023,
+        "lastDurationMs": 200909,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1773694931721
+        "runningAtMs": 1773782416999
       }
     },
     {
@@ -75,7 +75,7 @@
       "description": "Ежедневные приоритеты, ночной статус cron и AI Pulse из бесплатных источников",
       "enabled": true,
       "createdAtMs": 1773269151032,
-      "updatedAtMs": 1773612171989,
+      "updatedAtMs": 1773698612796,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -92,11 +92,11 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773698400000,
-        "lastRunAtMs": 1773612000018,
+        "nextRunAtMs": 1773784800000,
+        "lastRunAtMs": 1773698400021,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 171971,
+        "lastDurationMs": 212775,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0
@@ -108,7 +108,7 @@
       "description": "Генерация документации ОС за день для вкладки Brain",
       "enabled": true,
       "createdAtMs": 1773269161940,
-      "updatedAtMs": 1773608916368,
+      "updatedAtMs": 1773695300098,
       "schedule": {
         "kind": "cron",
         "expr": "0 0 * * *",
@@ -125,15 +125,15 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773669600000,
-        "lastRunAtMs": 1773608766370,
+        "nextRunAtMs": 1773756000000,
+        "lastRunAtMs": 1773695173912,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 149998,
+        "lastDurationMs": 126186,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1773694931721
+        "runningAtMs": 1773782416999
       }
     },
     {
@@ -142,7 +142,7 @@
       "description": "Исследование + генерация 1 micro-SaaS кандидата для Prototype Factory",
       "enabled": true,
       "createdAtMs": 1773612978422,
-      "updatedAtMs": 1773613078001,
+      "updatedAtMs": 1773697526775,
       "schedule": {
         "kind": "cron",
         "expr": "0 3 * * *",
@@ -159,14 +159,14 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773680400000,
-        "lastRunAtMs": 1773613003504,
+        "nextRunAtMs": 1773766800000,
+        "lastRunAtMs": 1773697416474,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 74497,
+        "lastDurationMs": 110301,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "runningAtMs": 1773694931721
+        "consecutiveErrors": 3,
+        "runningAtMs": 1773782416999
       }
     }
   ]
