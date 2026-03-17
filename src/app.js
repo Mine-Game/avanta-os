@@ -1755,8 +1755,8 @@ function renderOrgChart() {
             <div class="team-v2-team-list">
               ${lead.buckets
                 .map(
-                  (bucket, idx) => `
-                <details class="team-bucket" ${idx === 0 ? 'open' : ''}>
+                  (bucket) => `
+                <details class="team-bucket">
                   <summary>
                     <span>${escapeHtml(bucket.name)}</span>
                     <small>${escapeHtml(bucket.agents.length)} агента</small>

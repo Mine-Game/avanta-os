@@ -1002,6 +1002,16 @@ body { overflow: hidden; background: var(--bg-0); }
 }
 .team-bucket summary::-webkit-details-marker { display: none; }
 .team-bucket summary small { color: var(--muted); font-weight: 500; }
+.team-bucket summary::after {
+  content: '▸';
+  margin-left: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  transition: transform .18s ease;
+}
+.team-bucket[open] summary::after {
+  transform: rotate(90deg);
+}
 .team-bucket-summary { margin: 8px 0 10px; color: var(--muted); font-size: 12px; }
 .team-bucket-agents { display: grid; gap: 7px; }
 .team-agent-row {
