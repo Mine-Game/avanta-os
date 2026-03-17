@@ -1592,11 +1592,29 @@ function renderOrgChart() {
       mission: 'Техстратегия, архитектура, UX и качество релизов',
       color: 'blue',
       kpi: 'Стабильность релизов 99.5%',
-      teams: [
-        { name: 'Backend и интеграции', count: 2 },
-        { name: 'Frontend и UX', count: 2 },
-        { name: 'QA и надёжность', count: 1 }
-      ]
+      buckets: [
+        {
+          name: 'Backend и интеграции',
+          summary: 'API, контракты, интеграции и стабильность данных',
+          agents: [
+            { name: 'Архитектор API', role: 'Backend', status: 'Активен' },
+            { name: 'Интегратор систем', role: 'Integrations', status: 'Активен' },
+          ],
+        },
+        {
+          name: 'Frontend и UX',
+          summary: 'UI-компоненты, пользовательские сценарии и конверсия',
+          agents: [
+            { name: 'UI System Designer', role: 'Frontend', status: 'Активен' },
+            { name: 'UX Flow Optimizer', role: 'UX', status: 'Активен' },
+          ],
+        },
+        {
+          name: 'QA и надёжность',
+          summary: 'Регрессии, smoke-checks и качество релизов',
+          agents: [{ name: 'Reliability Guardian', role: 'QA', status: 'Активен' }],
+        },
+      ],
     },
     {
       role: 'CMO',
@@ -1605,11 +1623,29 @@ function renderOrgChart() {
       mission: 'Воронка 10→100→1000, эксперименты и контент-система',
       color: 'gold',
       kpi: 'Активация +18% WoW',
-      teams: [
-        { name: 'Контент-система', count: 2 },
-        { name: 'Эксперименты привлечения', count: 2 },
-        { name: 'Аналитика и инсайты', count: 1 }
-      ]
+      buckets: [
+        {
+          name: 'Контент-система',
+          summary: 'Статьи, редактура, репак по площадкам',
+          agents: [
+            { name: 'SEO Контент-стратег', role: 'SEO', status: 'Активен' },
+            { name: 'Редактор дистрибуции', role: 'Content Ops', status: 'Активен' },
+          ],
+        },
+        {
+          name: 'Эксперименты привлечения',
+          summary: 'Гипотезы роста, тесты офферов и каналов',
+          agents: [
+            { name: 'Growth Experiments', role: 'Growth', status: 'Активен' },
+            { name: 'Performance Analyst', role: 'Ads/Data', status: 'Активен' },
+          ],
+        },
+        {
+          name: 'Аналитика и инсайты',
+          summary: 'Когортный анализ, LTV/CAC, приоритизация решений',
+          agents: [{ name: 'Market Insights', role: 'Analytics', status: 'Активен' }],
+        },
+      ],
     },
     {
       role: 'COO',
@@ -1618,16 +1654,34 @@ function renderOrgChart() {
       mission: 'SOP, контроль исполнения, SLA и прозрачность процессов',
       color: 'teal',
       kpi: 'SLA вовремя 96%',
-      teams: [
-        { name: 'Контроль исполнения', count: 2 },
-        { name: 'Автоматизация операций', count: 2 },
-        { name: 'Клиентское исполнение', count: 1 }
-      ]
-    }
+      buckets: [
+        {
+          name: 'Контроль исполнения',
+          summary: 'Декомпозиция задач, дедлайны, follow-up',
+          agents: [
+            { name: 'Execution Tracker', role: 'Ops', status: 'Активен' },
+            { name: 'Deadline Controller', role: 'Ops', status: 'Активен' },
+          ],
+        },
+        {
+          name: 'Автоматизация операций',
+          summary: 'Cron, автопайплайны, операционные сценарии',
+          agents: [
+            { name: 'Automation Builder', role: 'Automation', status: 'Активен' },
+            { name: 'Ops Integrator', role: 'Integration', status: 'Активен' },
+          ],
+        },
+        {
+          name: 'Клиентское исполнение',
+          summary: 'Онбординг, поддержка, SLA-коммуникации',
+          agents: [{ name: 'Client Delivery Lead', role: 'Delivery', status: 'Активен' }],
+        },
+      ],
+    },
   ];
 
-  const totalTeams = leads.reduce((sum, lead) => sum + lead.teams.length, 0);
-  const totalAgents = 2 + leads.length + leads.reduce((sum, lead) => sum + lead.teams.reduce((n, t) => n + t.count, 0), 0);
+  const totalTeams = leads.reduce((sum, lead) => sum + lead.buckets.length, 0);
+  const totalAgents = 2 + leads.length + leads.reduce((sum, lead) => sum + lead.buckets.reduce((n, b) => n + b.agents.length, 0), 0);
 
   return `
     <section class="team-v2-shell">
@@ -1699,13 +1753,23 @@ function renderOrgChart() {
             <h4 class="team-v2-lead-title">${escapeHtml(lead.title)}</h4>
             <p>${escapeHtml(lead.mission)}</p>
             <div class="team-v2-team-list">
-              ${lead.teams
+              ${lead.buckets
                 .map(
-                  (team) => `
-                <div class="team-v2-team-item">
-                  <span>${escapeHtml(team.name)}</span>
-                  <small>${escapeHtml(team.count)} агента</small>
-                </div>`
+                  (bucket, idx) => `
+                <details class="team-bucket" ${idx === 0 ? 'open' : ''}>
+                  <summary>
+                    <span>${escapeHtml(bucket.name)}</span>
+                    <small>${escapeHtml(bucket.agents.length)} агента</small>
+                  </summary>
+                  <p class="team-bucket-summary">${escapeHtml(bucket.summary || '')}</p>
+                  <div class="team-bucket-agents">
+                    ${bucket.agents
+                      .map(
+                        (a) => `<div class="team-agent-row"><strong>${escapeHtml(a.name)}</strong><span>${escapeHtml(a.role)} · ${escapeHtml(a.status)}</span></div>`
+                      )
+                      .join('')}
+                  </div>
+                </details>`
                 )
                 .join('')}
             </div>
