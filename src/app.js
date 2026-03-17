@@ -760,18 +760,18 @@ function renderOpsBoard() {
   const b = state.opsBoard;
   const stages = b.stages || [];
   const stageMeta = {
-    intake: { label: 'To Do', icon: 'âšª', tone: 'todo' },
-    scoping: { label: 'Scoping', icon: 'ðŸŸ¦', tone: 'scoping' },
-    activation: { label: 'In Progress', icon: 'ðŸŸ¡', tone: 'progress' },
-    review: { label: 'Review', icon: 'ðŸŸ ', tone: 'review' },
-    execution: { label: 'On Hold', icon: 'ðŸŸ£', tone: 'hold' },
-    update: { label: 'Done', icon: 'ðŸŸ¢', tone: 'done' },
+    intake: { label: 'К исполнению', icon: '📝', tone: 'todo' },
+    scoping: { label: 'Скопинг', icon: '📐', tone: 'scoping' },
+    activation: { label: 'В работе', icon: '🚀', tone: 'progress' },
+    review: { label: 'Проверка', icon: '👀', tone: 'review' },
+    execution: { label: 'Пауза', icon: '⏸️', tone: 'hold' },
+    update: { label: 'Готово', icon: '✅', tone: 'done' },
   };
   const priorityLabels = {
-    low: 'Low',
-    medium: 'Med',
-    high: 'High',
-    critical: 'Critical',
+    low: 'Низкий',
+    medium: 'Средний',
+    high: 'Высокий',
+    critical: 'Критичный',
   };
 
   const tasks = Array.isArray(b.tasks) ? b.tasks : [];
@@ -780,21 +780,21 @@ function renderOpsBoard() {
   return `
     <section class="pm-luxe-shell">
       <header class="pm-luxe-head">
-        <h2>âœ¨ PM Board</h2>
+        <h2>🧭 PM-доска</h2>
         <div class="pm-luxe-kpis">
-          <span>Tasks <b>${tasks.length}</b></span>
-          <span>Blocked <b>${blockedCount}</b></span>
-          <span>Assignee <b>Андрей</b></span>
+          <span>Задачи <b>${tasks.length}</b></span>
+          <span>Блокеры <b>${blockedCount}</b></span>
+          <span>Исполнитель <b>Команда</b></span>
         </div>
       </header>
 
-      ${b.loading ? '<div class="session-meta">Загрузка…</div>' : ''}
+      ${b.loading ? '<div class="session-meta">Загрузка...</div>' : ''}
       ${b.error ? `<div class="session-meta" style="color:#ff9cb3;">${escapeHtml(b.error)}</div>` : ''}
 
       <div class="pm-luxe-grid">
         ${stages
           .map((stage) => {
-            const meta = stageMeta[stage] || { label: stage, icon: 'â€¢', tone: 'todo' };
+            const meta = stageMeta[stage] || { label: stage, icon: '•', tone: 'todo' };
             const items = tasks.filter((t) => t.stage === stage);
             return `
               <section class="pm-luxe-col tone-${meta.tone}">
@@ -804,23 +804,23 @@ function renderOpsBoard() {
                 </div>
                 <div class="pm-luxe-list" data-pm-drop-stage="${stage}">
                   ${items.length === 0
-                    ? '<div class="pm-empty">No tasks</div>'
+                    ? '<div class="pm-empty">Нет задач</div>'
                     : items
                         .map((t) => {
                           const pr = String(t.priority || 'medium').toLowerCase();
                           const isBlocked = t.status === 'blocked' || (t.blockers || []).length;
-                          const due = t.dueAt ? formatTime(t.dueAt) : '—';
+                          const due = t.dueAt ? formatTime(t.dueAt) : '-';
                           return `
                             <article class="pm-luxe-task" draggable="true" data-pm-task-id="${t.id}" data-pm-stage="${stage}" data-open-pm-task="${t.id}">
                               <div class="pm-task-top">
                                 <strong>${escapeHtml(t.title)}</strong>
                                 <span class="pm-priority pr-${pr}">${escapeHtml(priorityLabels[pr] || pr)}</span>
                               </div>
-                              <div class="pm-task-client">${escapeHtml(t.clientName || '—')}</div>
-                              ${isBlocked ? `<div class="pm-task-alert">âš  ${escapeHtml((t.blockers || [])[0]?.reason || 'Blocked')}</div>` : ''}
+                              <div class="pm-task-client">${escapeHtml(t.clientName || '-')}</div>
+                              ${isBlocked ? `<div class="pm-task-alert">⚠️ ${escapeHtml((t.blockers || [])[0]?.reason || 'Есть блокер')}</div>` : ''}
                               <div class="pm-task-meta">
-                                <span>👤 ${escapeHtml(t.assignee || 'Андрей')}</span>
-                                <span>â± ${escapeHtml(due)}</span>
+                                <span>👤 ${escapeHtml(t.assignee || 'Не назначен')}</span>
+                                <span>🗓️ ${escapeHtml(due)}</span>
                               </div>
                             </article>
                           `;
@@ -2514,6 +2514,9 @@ document.addEventListener('visibilitychange', () => {
   }
   refreshSessionViewerRealtime();
 });
+
+
+
 
 
 
