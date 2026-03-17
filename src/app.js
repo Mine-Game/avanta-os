@@ -1596,23 +1596,17 @@ function renderOrgChart() {
         {
           name: 'Backend и интеграции',
           summary: 'API, контракты, интеграции и стабильность данных',
-          agents: [
-            { name: 'Архитектор API', role: 'Backend', status: 'Активен' },
-            { name: 'Интегратор систем', role: 'Integrations', status: 'Активен' },
-          ],
+          agents: [],
         },
         {
           name: 'Frontend и UX',
           summary: 'UI-компоненты, пользовательские сценарии и конверсия',
-          agents: [
-            { name: 'UI System Designer', role: 'Frontend', status: 'Активен' },
-            { name: 'UX Flow Optimizer', role: 'UX', status: 'Активен' },
-          ],
+          agents: [],
         },
         {
           name: 'QA и надёжность',
           summary: 'Регрессии, smoke-checks и качество релизов',
-          agents: [{ name: 'Reliability Guardian', role: 'QA', status: 'Активен' }],
+          agents: [],
         },
       ],
     },
@@ -1627,23 +1621,17 @@ function renderOrgChart() {
         {
           name: 'Контент-система',
           summary: 'Статьи, редактура, репак по площадкам',
-          agents: [
-            { name: 'SEO Контент-стратег', role: 'SEO', status: 'Активен' },
-            { name: 'Редактор дистрибуции', role: 'Content Ops', status: 'Активен' },
-          ],
+          agents: [],
         },
         {
           name: 'Эксперименты привлечения',
           summary: 'Гипотезы роста, тесты офферов и каналов',
-          agents: [
-            { name: 'Growth Experiments', role: 'Growth', status: 'Активен' },
-            { name: 'Performance Analyst', role: 'Ads/Data', status: 'Активен' },
-          ],
+          agents: [],
         },
         {
           name: 'Аналитика и инсайты',
           summary: 'Когортный анализ, LTV/CAC, приоритизация решений',
-          agents: [{ name: 'Market Insights', role: 'Analytics', status: 'Активен' }],
+          agents: [],
         },
       ],
     },
@@ -1658,23 +1646,17 @@ function renderOrgChart() {
         {
           name: 'Контроль исполнения',
           summary: 'Декомпозиция задач, дедлайны, follow-up',
-          agents: [
-            { name: 'Execution Tracker', role: 'Ops', status: 'Активен' },
-            { name: 'Deadline Controller', role: 'Ops', status: 'Активен' },
-          ],
+          agents: [],
         },
         {
           name: 'Автоматизация операций',
           summary: 'Cron, автопайплайны, операционные сценарии',
-          agents: [
-            { name: 'Automation Builder', role: 'Automation', status: 'Активен' },
-            { name: 'Ops Integrator', role: 'Integration', status: 'Активен' },
-          ],
+          agents: [],
         },
         {
           name: 'Клиентское исполнение',
           summary: 'Онбординг, поддержка, SLA-коммуникации',
-          agents: [{ name: 'Client Delivery Lead', role: 'Delivery', status: 'Активен' }],
+          agents: [],
         },
       ],
     },
@@ -1770,11 +1752,13 @@ function renderOrgChart() {
                   </summary>
                   <p class="team-bucket-summary">${escapeHtml(bucket.summary || '')}</p>
                   <div class="team-bucket-agents">
-                    ${bucket.agents
-                      .map(
-                        (a) => `<div class="team-agent-row"><strong>${escapeHtml(a.name)}</strong><span>${escapeHtml(a.role)} · ${escapeHtml(a.status)}</span></div>`
-                      )
-                      .join('')}
+                    ${bucket.agents.length
+                      ? bucket.agents
+                          .map(
+                            (a) => `<div class="team-agent-row"><strong>${escapeHtml(a.name)}</strong><span>${escapeHtml(a.role)} · ${escapeHtml(a.status)}</span></div>`
+                          )
+                          .join('')
+                      : '<div class="team-agent-row"><strong>Пока пусто</strong><span>Субагенты не назначены</span></div>'}
                   </div>
                 </details>`
                 )
@@ -2588,6 +2572,7 @@ document.addEventListener('visibilitychange', () => {
   }
   refreshSessionViewerRealtime();
 });
+
 
 
 
