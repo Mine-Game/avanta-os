@@ -12,6 +12,7 @@ const state = {
     ops: [
       { id: 'ops-mission-control', title: 'Центр управления' },
       { id: 'ops-pm-board', title: 'PM-доска' },
+      { id: 'ops-articles', title: 'Статьи' },
       { id: 'ops-standups', title: 'Стендапы' },
       { id: 'ops-workspaces', title: 'Файлы' },
       { id: 'ops-org-chart', title: 'Команда' },
@@ -51,6 +52,11 @@ const state = {
     stages: ['intake', 'scoping', 'activation', 'review', 'execution', 'update'],
     tasks: [],
     deliverables: [],
+  },
+  opsArticles: {
+    loading: false,
+    error: null,
+    items: [],
   },
   pmTaskModal: {
     open: false,
@@ -208,6 +214,7 @@ function setModule(moduleId) {
   }
   if (moduleId === 'ops' && state.activeTabByModule.ops === 'ops-dashboard') loadOpsBoard();
   if (moduleId === 'ops' && state.activeTabByModule.ops === 'ops-pm-board') loadOpsBoard();
+  if (moduleId === 'ops' && state.activeTabByModule.ops === 'ops-articles') loadOpsArticles();
   if (moduleId === 'ops' && state.activeTabByModule.ops === 'ops-standups') loadOpsBoard();
   if (moduleId === 'ops' && state.activeTabByModule.ops === 'ops-docs') loadOpsDocs();
   if (moduleId === 'ops' && state.activeTabByModule.ops === 'ops-workspaces') loadOpsWorkspaces();
@@ -234,6 +241,7 @@ function setActiveTab(tabId) {
   }
   if (state.currentModule === 'ops' && tabId === 'ops-dashboard') loadOpsBoard();
   if (state.currentModule === 'ops' && tabId === 'ops-pm-board') loadOpsBoard();
+  if (state.currentModule === 'ops' && tabId === 'ops-articles') loadOpsArticles();
   if (state.currentModule === 'ops' && tabId === 'ops-standups') loadOpsBoard();
   if (state.currentModule === 'ops' && tabId === 'ops-docs') loadOpsDocs();
   if (state.currentModule === 'ops' && tabId === 'ops-workspaces') loadOpsWorkspaces();
@@ -492,6 +500,7 @@ function renderContent(moduleId, activeTab) {
 
   if (moduleId === 'ops' && activeTab === 'ops-mission-control') return renderMissionControl();
   if (moduleId === 'ops' && activeTab === 'ops-pm-board') return renderOpsBoard();
+  if (moduleId === 'ops' && activeTab === 'ops-articles') return renderOpsArticles();
   if (moduleId === 'ops' && activeTab === 'ops-standups') return renderOpsStandups();
   if (moduleId === 'ops' && activeTab === 'ops-workspaces') return renderOpsWorkspaces();
   if (moduleId === 'ops' && activeTab === 'ops-docs') return renderOpsDocs();
@@ -609,8 +618,9 @@ function renderOpsDashboard() {
 
       <div class="ops-shortcuts-grid">
         <button class="ops-shortcut" data-open-tab="ops-org-chart"><h4>Команда</h4><p>Структура агентов и ролей</p></button>
-        <button class="ops-shortcut" data-open-tab="ops-workspaces"><h4>Workspaces</h4><p>SOUL.md, IDENTITY.md, TOOLS.md и др.</p></button>
-        <button class="ops-shortcut" data-open-tab="ops-docs"><h4>Docs</h4><p>Системная документация с поиском</p></button>
+        <button class="ops-shortcut" data-open-tab="ops-articles"><h4>Статьи</h4><p>Контент-пайплайн для SEO и публикаций</p></button>
+        <button class="ops-shortcut" data-open-tab="ops-workspaces"><h4>Файлы</h4><p>SOUL.md, IDENTITY.md, TOOLS.md и др.</p></button>
+        <button class="ops-shortcut" data-open-tab="ops-docs"><h4>Документы</h4><p>Системная документация с поиском</p></button>
       </div>
     </section>
     ${renderPmTaskModal()}
@@ -834,6 +844,49 @@ function renderOpsBoard() {
       </div>
     </section>
     ${renderPmTaskModal()}
+  `;
+}
+
+function renderOpsArticles() {
+  const a = state.opsArticles;
+  const items = Array.isArray(a.items) ? a.items : [];
+
+  return `
+    <section class="pm-luxe-shell">
+      <header class="pm-luxe-head">
+        <h2>📰 Статьи</h2>
+        <div class="pm-luxe-kpis">
+          <span>Материалы <b>${items.length}</b></span>
+          <span>Цель <b>SEO + доверие</b></span>
+          <span>Фокус <b>FinFak</b></span>
+        </div>
+      </header>
+
+      ${a.loading ? '<div class="session-meta">Загрузка...</div>' : ''}
+      ${a.error ? `<div class="session-meta" style="color:#ff9cb3;">${escapeHtml(a.error)}</div>` : ''}
+
+      <div class="pm-luxe-grid" style="grid-template-columns:repeat(1,minmax(0,1fr));">
+        <section class="pm-luxe-col tone-todo">
+          <div class="pm-luxe-col-head">
+            <h3>Контент-пайплайн</h3>
+            <span>${items.length}</span>
+          </div>
+          <div class="pm-luxe-list">
+            ${items.length === 0
+              ? '<div class="pm-empty">Пока нет статей. Следующий шаг — собрать темы и SEO-брифы.</div>'
+              : items
+                  .map(
+                    (it) => `<article class="pm-luxe-task">
+                        <div class="pm-task-top"><strong>${escapeHtml(it.title || 'Без названия')}</strong><span class="pm-priority pr-medium">${escapeHtml(it.status || 'draft')}</span></div>
+                        <div class="pm-task-client">Платформа: ${escapeHtml(it.platform || 'site')}</div>
+                        <div class="pm-task-meta"><span>🔎 ${escapeHtml(it.keyword || '—')}</span><span>🎯 ${escapeHtml(it.goal || 'Трафик')}</span></div>
+                      </article>`
+                  )
+                  .join('')}
+          </div>
+        </section>
+      </div>
+    </section>
   `;
 }
 
@@ -2265,6 +2318,26 @@ async function loadOpsBoard() {
   } catch (err) {
     state.opsBoard.loading = false;
     state.opsBoard.error = err?.message || 'Ошибка PM Board';
+  }
+  render();
+}
+
+async function loadOpsArticles() {
+  state.opsArticles.loading = true;
+  state.opsArticles.error = null;
+  render();
+  try {
+    const response = await fetch('/api/ops/articles', { cache: 'no-store' });
+    if (!response.ok) throw new Error('Не удалось загрузить статьи');
+    const payload = await response.json();
+    state.opsArticles = {
+      loading: false,
+      error: null,
+      items: Array.isArray(payload.items) ? payload.items : [],
+    };
+  } catch (err) {
+    state.opsArticles.loading = false;
+    state.opsArticles.error = err?.message || 'Ошибка статей';
   }
   render();
 }
