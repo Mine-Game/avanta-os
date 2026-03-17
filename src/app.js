@@ -1584,113 +1584,46 @@ function renderMissionControl() {
 }
 
 function renderOrgChart() {
-  const agentColumns = [
-    {
-      title: 'Агент роста',
-      mission: 'Привлечение и активация пользователей 10→100→1000',
-      assistants: ['Ассистент контента', 'Ассистент гипотез', 'Ассистент аналитики'],
-    },
-    {
-      title: 'Агент продукта',
-      mission: 'Приоритезация фич, UX и ценность для клиентов',
-      assistants: ['Ассистент UX', 'Ассистент бэклога', 'Ассистент customer-feedback'],
-    },
-    {
-      title: 'Агент операций',
-      mission: 'SOP, контроль исполнения и стабильность процессов',
-      assistants: ['Ассистент cron/автоматизаций', 'Ассистент контроля задач', 'Ассистент отчётности'],
-    },
-    {
-      title: 'Агент лаборатории',
-      mission: 'Эксперименты, staged-прототипы и безопасное тестирование',
-      assistants: ['Ассистент экспериментов', 'Ассистент качества', 'Ассистент деплой-гейтов'],
-    },
-  ];
-
-  return `
-    <h2 class="section-title">Оргдиаграмма (черновик v0)</h2>
-    <section class="panel" style="margin-bottom:14px;">
-      <div class="info-grid">
-        <div class="info-cell"><small>Уровень 1</small><strong>Андрей (человек / владелец)</strong></div>
-        <div class="info-cell"><small>Уровень 2</small><strong>Стив (операционный партнёр / Chief of Execution)</strong></div>
-        <div class="info-cell"><small>Статус</small><strong>Каркас, без wiring</strong></div>
-        <div class="info-cell"><small>Цель</small><strong>Определить состав субагентов к эпизоду 3</strong></div>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h3 style="margin:0 0 10px;">Уровень 3 — подчинённые агенты Стива</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;">
-        ${agentColumns
-          .map(
-            (col) => `
-          <article class="card" style="text-align:left;">
-            <h3 style="margin:0 0 6px;">${escapeHtml(col.title)}</h3>
-            <p class="session-meta" style="margin:0 0 10px;">${escapeHtml(col.mission)}</p>
-            <div class="session-meta" style="margin-bottom:6px;"><strong>Под ним помощники:</strong></div>
-            <ul style="margin:0;padding-left:18px;">
-              ${col.assistants.map((a) => `<li style="margin:4px 0;">${escapeHtml(a)}</li>`).join('')}
-            </ul>
-          </article>
-        `
-          )
-          .join('')}
-      </div>
-    </section>
-
-    <section class="panel" style="margin-top:14px;">
-      <h3 style="margin:0 0 10px;">Что обсудить в следующих эпизодах</h3>
-      <ul style="margin:0;padding-left:18px;">
-        <li>Какие из этих агентов запускаем первыми (MVP-состав).</li>
-        <li>Какие метрики и SLA закрепляем за каждым агентом.</li>
-        <li>Какие отдельные workspace и права нужны каждому агенту.</li>
-        <li>Как делегирование проходит через Стива и где человек утверждает решения.</li>
-      </ul>
-    </section>
-  `;
-}
-
-function renderOrgChart() {
   const leads = [
     {
       role: 'CTO',
-      icon: 'ðŸ§ ',
+      icon: '🧠',
       title: 'Продукт и технологии',
       mission: 'Техстратегия, архитектура, UX и качество релизов',
       color: 'blue',
-      kpi: 'Release Stability 99.5%',
+      kpi: 'Стабильность релизов 99.5%',
       teams: [
         { name: 'Backend и интеграции', count: 2 },
         { name: 'Frontend и UX', count: 2 },
-        { name: 'QA и надёжность', count: 1 },
-      ],
+        { name: 'QA и надёжность', count: 1 }
+      ]
     },
     {
       role: 'CMO',
-      icon: 'ðŸ“ˆ',
+      icon: '📈',
       title: 'Рост и маркетинг',
       mission: 'Воронка 10→100→1000, эксперименты и контент-система',
       color: 'gold',
-      kpi: 'Activation +18% WoW',
+      kpi: 'Активация +18% WoW',
       teams: [
         { name: 'Контент-система', count: 2 },
         { name: 'Эксперименты привлечения', count: 2 },
-        { name: 'Аналитика и инсайты', count: 1 },
-      ],
+        { name: 'Аналитика и инсайты', count: 1 }
+      ]
     },
     {
       role: 'COO',
-      icon: 'âš™ï¸',
-      title: 'Операции и delivery',
-      mission: 'SOP, контроль исполнения, SLA и прозрачность delivery',
+      icon: '⚙️',
+      title: 'Операции и исполнение',
+      mission: 'SOP, контроль исполнения, SLA и прозрачность процессов',
       color: 'teal',
-      kpi: 'SLA On-time 96%',
+      kpi: 'SLA вовремя 96%',
       teams: [
         { name: 'Контроль исполнения', count: 2 },
         { name: 'Automation Ops', count: 2 },
-        { name: 'Клиентский delivery', count: 1 },
-      ],
-    },
+        { name: 'Клиентское исполнение', count: 1 }
+      ]
+    }
   ];
 
   const totalTeams = leads.reduce((sum, lead) => sum + lead.teams.length, 0);
@@ -1701,9 +1634,9 @@ function renderOrgChart() {
       <header class="team-v2-head">
         <div>
           <h2 class="section-title team-v2-title">Команда v2</h2>
-          <p class="team-v2-sub">Операционная структура Avanta OS · визуал для ежедневного управления</p>
+          <p class="team-v2-sub">Операционная структура Avanta OS — визуал для ежедневного управления</p>
         </div>
-        <div class="team-v2-chip">Live Org</div>
+        <div class="team-v2-chip">Живая оргструктура</div>
       </header>
 
       <div class="team-v2-metrics">
@@ -1718,7 +1651,7 @@ function renderOrgChart() {
           <div class="team-v2-person-row">
             <div class="team-avatar team-avatar-owner">А</div>
             <div>
-              <div class="team-v2-role">Owner</div>
+              <div class="team-v2-role">Собственник</div>
               <h3>Андрей</h3>
               <p>Стратегия, фокус и финальное решение</p>
             </div>
@@ -1729,13 +1662,13 @@ function renderOrgChart() {
 
         <article class="team-v2-node chief">
           <div class="team-v2-person-row">
-            <div class="team-avatar team-avatar-chief">ðŸ§­</div>
+            <div class="team-avatar team-avatar-chief">🧭</div>
             <div>
-              <div class="team-v2-role">Chief of Execution</div>
+              <div class="team-v2-role">Руководитель исполнения</div>
               <h3>Стив</h3>
               <p>Оркестрация задач, приоритеты, контроль исполнения</p>
               <div class="team-v2-tags">
-                <span>Ops Command Center</span>
+                <span>Операционный центр</span>
                 <span>Execution OS</span>
               </div>
             </div>
@@ -1745,11 +1678,10 @@ function renderOrgChart() {
 
       <section class="team-v2-leads">
         ${leads
-          .map(
-            (lead) => {
-              const leadName = lead.role === 'CTO' ? 'Илья' : lead.role === 'CMO' ? 'Мария' : 'Алексей';
-              const leadAvatar = lead.role === 'CTO' ? 'И' : lead.role === 'CMO' ? 'М' : 'А';
-              return `
+          .map((lead) => {
+            const leadName = lead.role === 'CTO' ? 'Илья' : lead.role === 'CMO' ? 'Мария' : 'Алексей';
+            const leadAvatar = lead.role === 'CTO' ? 'И' : lead.role === 'CMO' ? 'М' : 'А';
+            return `
           <article class="team-v2-lead tone-${escapeHtml(lead.color)}">
             <div class="team-v2-lead-top">
               <span>${escapeHtml(lead.icon)} ${escapeHtml(lead.role)}</span>
@@ -1759,7 +1691,7 @@ function renderOrgChart() {
             <div class="team-v2-lead-person">
               <div class="team-avatar team-avatar-${escapeHtml(lead.color)}">${escapeHtml(leadAvatar)}</div>
               <div>
-                <div class="team-v2-role">${escapeHtml(lead.role)} Lead</div>
+                <div class="team-v2-role">Лид ${escapeHtml(lead.role)}</div>
                 <h3>${escapeHtml(leadName)}</h3>
               </div>
             </div>
@@ -1778,14 +1710,12 @@ function renderOrgChart() {
                 .join('')}
             </div>
           </article>`;
-            }
-          )
+          })
           .join('')}
       </section>
     </section>
   `;
 }
-
 function renderLabDashboard() {
   const l = state.lab;
 
@@ -2587,6 +2517,7 @@ document.addEventListener('visibilitychange', () => {
   }
   refreshSessionViewerRealtime();
 });
+
 
 
 
