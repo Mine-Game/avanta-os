@@ -7,7 +7,7 @@
       "description": "02:00 — безопасный бэкап в приватный git-репозиторий",
       "enabled": true,
       "createdAtMs": 1773269128978,
-      "updatedAtMs": 1773694973003,
+      "updatedAtMs": 1773782462392,
       "schedule": {
         "kind": "cron",
         "expr": "0 2 * * *",
@@ -24,49 +24,15 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773763200000,
-        "lastRunAtMs": 1773694931728,
+        "nextRunAtMs": 1773849600000,
+        "lastRunAtMs": 1773782417018,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 41275,
+        "lastDurationMs": 45374,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1773782416999
-      }
-    },
-    {
-      "id": "b7c281a5-0b1f-4104-b275-a1b302a854e1",
-      "name": "Ночное самоулучшение (Staged)",
-      "description": "Аудит одного модуля Avanta и реализация ровно одной staged-фичи",
-      "enabled": true,
-      "createdAtMs": 1773269140230,
-      "updatedAtMs": 1773695173912,
-      "schedule": {
-        "kind": "cron",
-        "expr": "30 2 * * *",
-        "tz": "Asia/Vladivostok"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Каждую ночь проводи аудит ровно ОДНОГО модуля Avanta OS (ops/brain/lab), предложи одно улучшение с наибольшим эффектом в соответствии с целями USER.md + MEMORY.md, внедряй только на staged sandbox preview-порту (никогда не 8800), создай/обнови кандидата фичи в Lab с preview URL через /api/lab/nightly-candidate и логируй результаты/ошибки. Никогда не деплой в production."
-      },
-      "delivery": {
-        "mode": "none",
-        "channel": "last"
-      },
-      "state": {
-        "nextRunAtMs": 1773765000000,
-        "lastRunAtMs": 1773694973003,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 200909,
-        "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0,
-        "runningAtMs": 1773782416999
+        "runningAtMs": 1773867318676
       }
     },
     {
@@ -75,7 +41,7 @@
       "description": "Ежедневные приоритеты, ночной статус cron и AI Pulse из бесплатных источников",
       "enabled": true,
       "createdAtMs": 1773269151032,
-      "updatedAtMs": 1773698612796,
+      "updatedAtMs": 1773785024950,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -92,11 +58,11 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773784800000,
-        "lastRunAtMs": 1773698400021,
+        "nextRunAtMs": 1773871200000,
+        "lastRunAtMs": 1773784800012,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 212775,
+        "lastDurationMs": 224938,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0
@@ -108,7 +74,7 @@
       "description": "Генерация документации ОС за день для вкладки Brain",
       "enabled": true,
       "createdAtMs": 1773269161940,
-      "updatedAtMs": 1773695300098,
+      "updatedAtMs": 1773782786989,
       "schedule": {
         "kind": "cron",
         "expr": "0 0 * * *",
@@ -125,48 +91,15 @@
         "channel": "last"
       },
       "state": {
-        "nextRunAtMs": 1773756000000,
-        "lastRunAtMs": 1773695173912,
+        "nextRunAtMs": 1773842400000,
+        "lastRunAtMs": 1773782642599,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 126186,
+        "lastDurationMs": 144390,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1773782416999
-      }
-    },
-    {
-      "id": "8d3f7640-69ee-496e-8c23-c74dc7bf3cd8",
-      "name": "Ночной Micro-SaaS Factory",
-      "description": "Исследование + генерация 1 micro-SaaS кандидата для Prototype Factory",
-      "enabled": true,
-      "createdAtMs": 1773612978422,
-      "updatedAtMs": 1773697526775,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 3 * * *",
-        "tz": "Asia/Vladivostok"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Каждую ночь создай один новый Micro-SaaS кандидат для Prototype Factory на основе реальных исследований рынка.\nШаги:\n1) Выполни исследование через локальный endpoint Avanta `POST http://127.0.0.1:8800/api/research/langsearch` с запросом про pain points и willing-to-pay в узких B2B нишах (до 6 результатов).\n2) Сформируй артефакты:\n   - идея продукта (название, ICP, проблема, решение, монетизация, риски)\n   - go/no-go score по шкале 0..10\n   - краткий GTM-план (канал, оффер, тест)\n   - preview-концепт (URL если есть, иначе текстовое описание)\n3) Сохрани research JSON в `projects/avanta-os/data/lab/research/YYYY-MM-DD-microsaas.json`.\n4) Обнови/добавь кандидата через `POST http://127.0.0.1:8800/api/lab/nightly-candidate`.\n5) Запиши лог результата в `projects/avanta-os/data/lab/nightly-builds/latest.json`.\nТребования: без моков, только реальные сигналы; если данных мало — явно укажи ограничения."
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "last"
-      },
-      "state": {
-        "nextRunAtMs": 1773766800000,
-        "lastRunAtMs": 1773697416474,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 110301,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "runningAtMs": 1773782416999
+        "runningAtMs": 1773867318676
       }
     }
   ]
